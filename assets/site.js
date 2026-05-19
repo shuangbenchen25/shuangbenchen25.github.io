@@ -37,6 +37,8 @@ const translations = {
         "academics.skills.note": "IELTS 7.5 overall with 9.0 in Reading; CET-4 score 645/710.",
         "projects.title": "Projects",
         "projects.desc": "Research and design work that can grow into a portfolio.",
+        "projects.research.nav": "Research",
+        "projects.design.nav": "Design",
         "projects.research.type": "Research Project",
         "projects.research.title": "RL Post-training Infrastructure for Robotic Manipulation",
         "projects.research.body": "Developing infrastructure for reinforcement learning post-training on large-scale robotic manipulation datasets under the supervision of Professor Hao Dong.",
@@ -61,7 +63,10 @@ const translations = {
         "others.activities.title": "Activities",
         "others.activities.item1": "Department staff, Yuanpei External Relations Department.",
         "others.activities.item2": "Core member of Polang Movie Club and Fascinating Film Field Movie Club.",
-        "others.activities.item3": "One of 35 candidates in Super Brain Season 13, released Jan 2026.",
+        "others.activities.item3": "Season 13 candidate, released Jan 2026.",
+        "terms.superbrain.title": "Super Brain",
+        "terms.superbrain.desc": "A note page for context about the TV program and my participation.",
+        "terms.superbrain.body": "Super Brain is a Chinese reality and competition program focused on memory, reasoning, observation, and other cognitive challenges. I was one of 35 candidates in Season 13, released in January 2026. This page can be expanded later with episode details, media links, personal reflections, and related materials.",
         "others.interests.title": "Interests",
         "footer.note": "Static academic homepage for GitHub Pages",
         "search.none": "No matching page",
@@ -105,6 +110,8 @@ const translations = {
         "academics.skills.note": "IELTS 7.5，阅读 9.0；CET-4 645/710。",
         "projects.title": "项目",
         "projects.desc": "可逐步扩展为作品集的科研与设计实践。",
+        "projects.research.nav": "研究",
+        "projects.design.nav": "设计",
         "projects.research.type": "科研项目",
         "projects.research.title": "面向机器人操作的 RL 后训练基础设施",
         "projects.research.body": "在董豪教授指导下，开发面向大规模机器人操作数据集的强化学习后训练基础设施。",
@@ -129,7 +136,10 @@ const translations = {
         "others.activities.title": "活动",
         "others.activities.item1": "元培学院外联部部员。",
         "others.activities.item2": "破浪电影社与迷影社核心成员。",
-        "others.activities.item3": "《最强大脑》第十三季 35 位候选人之一，节目于 2026 年 1 月播出。",
+        "others.activities.item3": "第十三季 35 位候选人之一，节目于 2026 年 1 月播出。",
+        "terms.superbrain.title": "最强大脑",
+        "terms.superbrain.desc": "用于补充说明这个节目以及我的参与经历。",
+        "terms.superbrain.body": "《最强大脑》是一档围绕记忆、推理、观察等认知能力挑战展开的中国综艺竞赛节目。我是第十三季 35 位候选人之一，该季节目于 2026 年 1 月播出。这个页面后续可以继续补充节目期数、媒体链接、个人回顾和相关资料。",
         "others.interests.title": "兴趣",
         "footer.note": "面向 GitHub Pages 的静态学术主页",
         "search.none": "没有匹配页面",
@@ -154,9 +164,24 @@ const searchIndex = [
         text: "projects reinforcement learning robotics datasets Yuanpei Design Lab content creation Weibo RedNote 项目 强化学习 机器人 数据集 设计实验室 内容创作"
     },
     {
+        url: "/projects/research/",
+        title: { en: "Research Projects", zh: "研究项目" },
+        text: "research projects reinforcement learning robotics datasets training infrastructure 研究 项目 强化学习 机器人 数据集"
+    },
+    {
+        url: "/projects/design/",
+        title: { en: "Design Portfolio", zh: "设计作品集" },
+        text: "design portfolio Yuanpei Design Lab posters visual assets presentations WeChat 设计 作品集 海报 视觉资产"
+    },
+    {
         url: "/blog/",
         title: { en: "Blog", zh: "博客" },
         text: "blog research notes film puzzles science fiction reflections 博客 科研笔记 电影 谜题 科幻"
+    },
+    {
+        url: "/blog/posts/2026-05-19-welcome/",
+        title: { en: "Welcome Note", zh: "欢迎笔记" },
+        text: "welcome note markdown workflow blog post 博客 文章 Markdown 工作流"
     },
     {
         url: "/contact/",
@@ -167,6 +192,11 @@ const searchIndex = [
         url: "/others/",
         title: { en: "Others", zh: "其他" },
         text: "activities interests Super Brain movie club billiards music games science fiction 活动 兴趣 最强大脑 电影社 台球 音游 科幻"
+    },
+    {
+        url: "/terms/super-brain/",
+        title: { en: "Super Brain", zh: "最强大脑" },
+        text: "Super Brain Season 13 cognitive challenge reality show 最强大脑 第十三季 认知挑战 综艺"
     }
 ];
 
@@ -175,6 +205,8 @@ const languageToggle = document.querySelector("#language-toggle");
 const themeToggle = document.querySelector("#theme-toggle");
 const searchInput = document.querySelector("#site-search");
 const searchResults = document.querySelector("#search-results");
+const menuToggle = document.querySelector("#menu-toggle");
+const nav = document.querySelector(".nav");
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const themeModes = ["system", "light", "dark"];
 
@@ -269,11 +301,16 @@ function markActiveNav() {
     document.querySelectorAll(".nav-links a").forEach((link) => {
         const linkPath = new URL(link.href).pathname;
         const normalizedLink = linkPath === "/index.html" ? "/" : linkPath;
-        if (normalizedLink === currentPath) {
+        if (normalizedLink === currentPath || (normalizedLink !== "/" && currentPath.startsWith(normalizedLink))) {
             link.classList.add("is-active");
         }
     });
 }
+
+menuToggle?.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+});
 
 languageToggle.addEventListener("click", () => {
     applyLanguage(currentLanguage === "en" ? "zh" : "en");
@@ -298,12 +335,20 @@ document.addEventListener("click", (event) => {
     if (!event.target.closest(".search")) {
         searchResults.classList.remove("is-open");
     }
+    if (nav.classList.contains("is-open") && !event.target.closest(".nav")) {
+        nav.classList.remove("is-open");
+        menuToggle?.setAttribute("aria-expanded", "false");
+    }
 });
 
 document.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
         searchInput.focus();
+    }
+    if (event.key === "Escape" && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        menuToggle?.setAttribute("aria-expanded", "false");
     }
 });
 

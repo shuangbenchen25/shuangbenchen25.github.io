@@ -1,0 +1,7 @@
+title: Shuangben Chen
+description: Personal academic homepage for Shuangben Chen
+url: "https://shuangbenchen25.github.io"
+markdown: kramdown
+permalink: pretty
+exclude:
+  - README.md

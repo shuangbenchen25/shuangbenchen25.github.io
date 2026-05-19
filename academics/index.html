@@ -11,11 +11,12 @@
 <body>
     <header class="topbar">
         <nav class="site-shell nav" aria-label="Primary navigation">
-            <a class="brand" href="/"><img class="brand-mark" src="/assets/brand/favicon.svg" alt="">Shuangben Chen</a>
+            <a class="brand" href="/"><img class="brand-mark" src="/assets/brand/favicon.svg" alt=""><span>Shuangben</span> <span class="brand-surname">Chen</span></a>
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-label="Menu"><span class="menu-toggle-lines" aria-hidden="true"><span></span><span></span></span><span>Menu</span></button>
             <div class="nav-links">
                 <a href="/" data-i18n="nav.about">About</a>
                 <a href="/academics/" data-i18n="nav.academics">Academics</a>
-                <a href="/projects/" data-i18n="nav.projects">Projects</a>
+                <div class="nav-item"><a href="/projects/" data-i18n="nav.projects">Projects</a><div class="nav-submenu"><a href="/projects/research/" data-i18n="projects.research.nav">Research</a><a href="/projects/design/" data-i18n="projects.design.nav">Design</a></div></div>
                 <a href="/blog/" data-i18n="nav.blog">Blog</a>
                 <a href="/contact/" data-i18n="nav.contact">Contact</a>
                 <a href="/others/" data-i18n="nav.others">Others</a>

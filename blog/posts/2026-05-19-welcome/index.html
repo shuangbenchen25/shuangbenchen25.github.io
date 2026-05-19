@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact Shuangben Chen.">
-    <title>Contact | Shuangben Chen</title>
+    <meta name="description" content="A placeholder post showing the Markdown workflow.">
+    <title>Welcome Note | Shuangben Chen</title>
     <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/site.css">
 </head>
@@ -29,13 +29,23 @@
         </nav>
     </header>
     <main class="site-shell">
-        <header class="page-head"><h1 class="page-title" data-i18n="contact.title">Contact</h1><p data-i18n="contact.desc">For research conversations and collaboration.</p></header>
+        <article class="page-head">
+            <p class="eyebrow">2026-05-19</p>
+            <h1 class="page-title">Welcome Note</h1>
+            <p>A placeholder post showing the Markdown workflow.</p>
+        </article>
         <section class="section">
-            <div class="section-label"><h2 data-i18n="contact.title">Contact</h2><p data-i18n="contact.desc">For research conversations and collaboration.</p></div>
+            <div class="section-label"><h2>Note</h2><p>Blog post</p></div>
             <article class="card">
-                <p class="eyebrow" data-i18n="contact.eyebrow">Peking University</p>
-                <h3><a href="mailto:shuangbenchen25@stu.pku.edu.cn">shuangbenchen25@stu.pku.edu.cn</a></h3>
-                <p class="muted" data-i18n="contact.body">I am currently based at Yuanpei College, Peking University. My current CV is available as a PDF from the profile card.</p>
+                <p>This is a placeholder blog post.</p>
+                <p>Markdown sources live under <code>blog/posts/</code>. The matching HTML page keeps local preview reliable under <code>python3 -m http.server</code>.</p>
+                <pre><code>---
+layout: post
+title: "Your Title"
+date: 2026-05-20
+description: "One sentence summary."
+---</code></pre>
+                <p>The clean next step for fully automatic Markdown publishing is a small GitHub Pages build workflow that scans these files and regenerates the blog index on every push.</p>
             </article>
         </section>
     </main>
