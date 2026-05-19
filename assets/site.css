@@ -646,6 +646,15 @@ li + li {
         z-index: 55;
     }
 
+    .nav.is-open .menu-toggle {
+        position: fixed;
+        top: 18px;
+        right: 20px;
+        z-index: 56;
+        background: color-mix(in srgb, var(--panel-strong) 94%, var(--paper));
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+    }
+
     .brand {
         position: relative;
         z-index: 55;
@@ -660,6 +669,20 @@ li + li {
         background: rgba(0, 0, 0, 0.28);
     }
 
+    .nav.is-open::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 44;
+        width: min(86vw, 380px);
+        border-left: 1px solid var(--line);
+        background:
+            linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 96%, var(--forest) 4%), var(--panel-strong));
+        box-shadow: var(--shadow);
+    }
+
     .nav-links {
         position: fixed;
         top: 0;
@@ -667,16 +690,17 @@ li + li {
         bottom: 0;
         z-index: 45;
         display: flex;
+        height: 100vh;
+        min-height: 100dvh;
         width: min(86vw, 380px);
         flex-direction: column;
         align-items: stretch;
         justify-content: flex-start;
         gap: 8px;
         padding: 104px 24px 178px;
-        border-left: 1px solid var(--line);
         background:
             linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 96%, var(--forest) 4%), var(--panel-strong));
-        box-shadow: var(--shadow);
+        overflow-y: auto;
         opacity: 0;
         pointer-events: none;
         transform: translateX(105%);
@@ -704,9 +728,8 @@ li + li {
         gap: 10px;
         width: min(86vw, 380px);
         padding: 18px 24px 28px;
-        border-left: 1px solid var(--line);
         border-top: 1px solid var(--line);
-        background: var(--panel-strong);
+        background: color-mix(in srgb, var(--panel-strong) 96%, var(--paper));
         opacity: 0;
         pointer-events: none;
         transform: translateX(105%);
@@ -757,8 +780,14 @@ li + li {
 
     .tool-button,
     .theme-cycle {
+        justify-content: center;
+        min-width: 0;
         background: color-mix(in srgb, var(--panel-strong) 86%, var(--paper));
         border-color: var(--line);
+    }
+
+    .theme-cycle {
+        width: 100%;
     }
 
     .hero,
