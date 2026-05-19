@@ -21,6 +21,7 @@ This is a static multi-page GitHub Pages site:
 - `assets/site.js`: shared language toggle, search, active navigation, and theme mode logic.
 - `assets/brand/favicon.svg`: handwritten-style `2Ben` favicon and brand mark.
 - `assets/cv/shuangben-chen-cv.pdf`: downloadable CV.
+- `CONTENT_GUIDE.md`: Chinese guide for updating page content.
 
 There is still no build step, package manager, framework, CDN, analytics, telemetry, or external network dependency.
 

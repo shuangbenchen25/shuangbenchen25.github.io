@@ -68,7 +68,7 @@ const translations = {
         "terms.superbrain.desc": "A note page for context about the TV program and my participation.",
         "terms.superbrain.body": "Super Brain is a Chinese reality and competition program focused on memory, reasoning, observation, and other cognitive challenges. I was one of 35 candidates in Season 13, released in January 2026. This page can be expanded later with episode details, media links, personal reflections, and related materials.",
         "others.interests.title": "Interests",
-        "footer.note": "Static academic homepage for GitHub Pages",
+        "footer.updated": "Last updated",
         "search.none": "No matching page",
         "search.hint": "Type a page, keyword, award, project, or skill."
     },
@@ -141,7 +141,7 @@ const translations = {
         "terms.superbrain.desc": "用于补充说明这个节目以及我的参与经历。",
         "terms.superbrain.body": "《最强大脑》是一档围绕记忆、推理、观察等认知能力挑战展开的中国综艺竞赛节目。我是第十三季 35 位候选人之一，该季节目于 2026 年 1 月播出。这个页面后续可以继续补充节目期数、媒体链接、个人回顾和相关资料。",
         "others.interests.title": "兴趣",
-        "footer.note": "面向 GitHub Pages 的静态学术主页",
+        "footer.updated": "最后修改",
         "search.none": "没有匹配页面",
         "search.hint": "输入页面、关键词、奖项、项目或技能。"
     }
@@ -207,6 +207,7 @@ const searchInput = document.querySelector("#site-search");
 const searchResults = document.querySelector("#search-results");
 const menuToggle = document.querySelector("#menu-toggle");
 const nav = document.querySelector(".nav");
+const lastModifiedNode = document.querySelector("[data-last-modified]");
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const themeModes = ["system", "light", "dark"];
 
@@ -231,7 +232,24 @@ function applyLanguage(language) {
     });
     languageToggle.textContent = language === "en" ? "中文" : "EN";
     updateThemeButton();
+    updateLastModified();
     renderSearch(searchInput.value);
+}
+
+function formatLastModified() {
+    const date = new Date(document.lastModified);
+    if (Number.isNaN(date.getTime())) {
+        return document.lastModified;
+    }
+    const pad = (value) => String(value).padStart(2, "0");
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function updateLastModified() {
+    if (!lastModifiedNode) {
+        return;
+    }
+    lastModifiedNode.textContent = `${translations[currentLanguage]["footer.updated"]}: ${formatLastModified()}`;
 }
 
 function effectiveTheme() {

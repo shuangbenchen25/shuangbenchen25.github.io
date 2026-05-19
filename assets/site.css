@@ -105,7 +105,7 @@ input {
 .brand-surname {
     color: var(--forest);
     font-family: var(--font-ui);
-    font-weight: 800;
+    font-weight: 650;
 }
 
 html[data-theme="dark"] .brand-surname {
@@ -672,9 +672,10 @@ li + li {
         align-items: stretch;
         justify-content: flex-start;
         gap: 8px;
-        padding: 104px 24px 24px;
+        padding: 104px 24px 178px;
         border-left: 1px solid var(--line);
-        background: var(--panel-strong);
+        background:
+            linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 96%, var(--forest) 4%), var(--panel-strong));
         box-shadow: var(--shadow);
         opacity: 0;
         pointer-events: none;
@@ -682,12 +683,25 @@ li + li {
         transition: opacity 180ms ease, transform 180ms ease;
     }
 
+    .nav-links a {
+        display: block;
+        border-radius: 8px;
+        padding: 10px 12px;
+    }
+
+    .nav-item {
+        display: grid;
+        gap: 2px;
+    }
+
     .nav-tools {
         position: fixed;
         right: 0;
         bottom: 0;
         z-index: 46;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
         width: min(86vw, 380px);
         padding: 18px 24px 28px;
         border-left: 1px solid var(--line);
@@ -697,7 +711,10 @@ li + li {
         pointer-events: none;
         transform: translateX(105%);
         transition: opacity 180ms ease, transform 180ms ease;
-        flex-wrap: wrap;
+    }
+
+    .nav-tools .search {
+        grid-column: 1 / -1;
     }
 
     .nav.is-open .nav-links,
@@ -711,7 +728,7 @@ li + li {
         position: static;
         display: grid;
         min-width: 0;
-        margin: 4px 0 0 16px;
+        margin: 0 0 0 14px;
         padding: 0;
         border: 0;
         background: transparent;
@@ -719,10 +736,29 @@ li + li {
         opacity: 1;
         pointer-events: auto;
         transform: none;
+        transition: none;
+    }
+
+    .nav-item:hover .nav-submenu,
+    .nav-item:focus-within .nav-submenu {
+        transform: none;
+    }
+
+    .nav-submenu a {
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--muted);
     }
 
     .search input {
-        width: min(100%, 260px);
+        width: 100%;
+    }
+
+    .tool-button,
+    .theme-cycle {
+        background: color-mix(in srgb, var(--panel-strong) 86%, var(--paper));
+        border-color: var(--line);
     }
 
     .hero,
@@ -754,7 +790,6 @@ li + li {
         width: min(100% - 24px, 1180px);
     }
 
-    .nav-tools,
     .search,
     .search input {
         width: 100%;
