@@ -17,7 +17,9 @@
 - 博客列表：`src/pages/blog/index.astro`
 - 博客文章页模板：`src/pages/blog/posts/[slug].astro`
 - 博客 Markdown：`src/content/blog/*.md`
-- 联系页：`src/pages/contact/index.astro`
+- 动态页：`src/pages/news/index.astro`
+- 动态 Markdown：`src/content/news/*.md`
+- 底部联系方式：`src/data/site.ts` 中的 `contactLinks`
 - 其他页：`src/pages/others/index.astro`
 - 名词解释页：`src/pages/terms/*/index.astro`
 - CV：`public/assets/cv/shuangben-chen-cv.pdf`
@@ -110,6 +112,36 @@ $$
 并自动把它列进 `/blog/`。
 
 文件名建议使用英文、数字和短横线。中文标题可以写在 front matter 的 `title` 里；文件名里不要使用空格、`&`、`#` 这类符号。
+
+## 添加 News 动态
+
+News 也由 Markdown 维护。新增动态只需要在 `src/content/news/` 下新建文件：
+
+```text
+src/content/news/2026-05-20-my-update.md
+```
+
+写 front matter：
+
+```yaml
+---
+title: "Short Update Title"
+date: 2026-05-20
+description: "One sentence summary."
+---
+```
+
+下面写正文。构建时会自动按日期倒序显示在 `/news/`。
+
+## 修改底部联系方式
+
+底部图标链接集中在 `src/data/site.ts` 的 `contactLinks`：
+
+```ts
+{ label: "GitHub", href: "https://github.com/shuangbenchen25", icon: "github", enabled: true }
+```
+
+如果暂时没有某个平台链接，把 `enabled` 设为 `false` 即可。
 
 ## 添加名词解释页
 

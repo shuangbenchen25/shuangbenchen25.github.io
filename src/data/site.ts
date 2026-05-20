@@ -6,7 +6,7 @@ export const translations = {
     "nav.academics": "Academics",
     "nav.projects": "Projects",
     "nav.blog": "Blog",
-    "nav.contact": "Contact",
+    "nav.news": "News",
     "nav.others": "Others",
     "search.placeholder": "Search",
     "theme.system": "System",
@@ -24,6 +24,19 @@ export const translations = {
     "card.research.label": "Research Unit",
     "card.research.value": "CFCS, PKU",
     "card.cv": "Download PDF",
+    "home.overview.title": "Explore",
+    "home.overview.desc": "A quick index of the main sections.",
+    "home.more": "More",
+    "home.academics.kicker": "Academic record",
+    "home.academics.summary": "Peking University, Yuanpei College; AI major; coursework, scholarships, language scores, and technical skills.",
+    "home.projects.kicker": "Research & design",
+    "home.projects.summary": "RL post-training infrastructure for robotic manipulation, Yuanpei Design Lab work, and public-facing media practice.",
+    "home.blog.kicker": "Notes",
+    "home.blog.summary": "Research notes, film writing, class notes, and longer reflections maintained as Markdown posts.",
+    "home.news.kicker": "Recent updates",
+    "home.news.summary": "Short updates about new findings, site changes, activities, and things worth recording.",
+    "home.others.kicker": "Beyond coursework",
+    "home.others.summary": "Movie clubs, Super Brain, interests, and other activities outside the core academic track.",
     "academics.title": "Academics",
     "academics.desc": "Education, coursework, awards, and core skills.",
     "academics.pku.title": "Peking University, Yuanpei College",
@@ -52,6 +65,8 @@ export const translations = {
     "projects.media.body": "Independent creator on Weibo and RedNote, connecting science, film, design, and public-facing storytelling.",
     "blog.title": "Blog",
     "blog.desc": "Research notes and personal reflections.",
+    "news.title": "News",
+    "news.desc": "Recent updates, findings, and small notes.",
     "contact.title": "Contact",
     "contact.desc": "For conversations and collaboration.",
     "contact.email.eyebrow": "PKU Mail",
@@ -71,6 +86,7 @@ export const translations = {
     "terms.superbrain.body": "Super Brain is a Chinese reality and competition program focused on memory, reasoning, observation, and other cognitive challenges. I was one of 35 candidates in Season 13, released in January 2026. This page can be expanded later with episode details, media links, personal reflections, and related materials.",
     "others.interests.title": "Interests",
     "footer.updated": "Last updated",
+    "footer.contact": "Contact",
     "search.none": "No matching page",
     "search.hint": "Type a page, keyword, award, project, or skill."
   },
@@ -79,7 +95,7 @@ export const translations = {
     "nav.academics": "学术",
     "nav.projects": "项目",
     "nav.blog": "博客",
-    "nav.contact": "联系",
+    "nav.news": "动态",
     "nav.others": "其他",
     "search.placeholder": "搜索",
     "theme.system": "系统",
@@ -97,6 +113,19 @@ export const translations = {
     "card.research.label": "科研单位",
     "card.research.value": "北大前沿计算研究中心",
     "card.cv": "下载 CV",
+    "home.overview.title": "概览",
+    "home.overview.desc": "快速索引网站的主要分区。",
+    "home.more": "更多",
+    "home.academics.kicker": "学术记录",
+    "home.academics.summary": "北京大学元培学院，人工智能方向；整理课程、奖学金、语言成绩与技术技能。",
+    "home.projects.kicker": "科研与设计",
+    "home.projects.summary": "机器人操作方向 RL 后训练基础设施、元培设计实验室实践，以及公共表达相关内容创作。",
+    "home.blog.kicker": "笔记",
+    "home.blog.summary": "以 Markdown 维护科研笔记、电影写作、课程笔记和较长的个人思考。",
+    "home.news.kicker": "近期更新",
+    "home.news.summary": "记录最近的新见闻、网站更新、活动和其他值得保留的小动态。",
+    "home.others.kicker": "课程之外",
+    "home.others.summary": "电影社、最强大脑、兴趣与核心学术路径之外的活动。",
     "academics.title": "学术",
     "academics.desc": "教育背景、课程、奖项与核心技能。",
     "academics.pku.title": "北京大学，元培学院",
@@ -125,6 +154,8 @@ export const translations = {
     "projects.media.body": "在微博和小红书进行独立内容创作，连接科学、电影、设计与面向公众的表达。",
     "blog.title": "博客",
     "blog.desc": "科研笔记与个人思考。",
+    "news.title": "动态",
+    "news.desc": "最近的新见闻、更新和短记录。",
     "contact.title": "联系",
     "contact.desc": "欢迎交流与合作。",
     "contact.email.eyebrow": "北大邮箱",
@@ -144,6 +175,7 @@ export const translations = {
     "terms.superbrain.body": "《最强大脑》是一档围绕记忆、推理、观察等认知能力挑战展开的中国综艺竞赛节目。我是第十三季 35 位候选人之一，该季节目于 2026 年 1 月播出。这个页面后续可以继续补充节目期数、媒体链接、个人回顾和相关资料。",
     "others.interests.title": "兴趣",
     "footer.updated": "最后修改",
+    "footer.contact": "联系方式",
     "search.none": "没有匹配页面",
     "search.hint": "输入页面、关键词、奖项、项目或技能。"
   }
@@ -163,7 +195,7 @@ export const navItems = [
     ]
   },
   { href: "/blog/", key: "nav.blog" },
-  { href: "/contact/", key: "nav.contact" },
+  { href: "/news/", key: "nav.news" },
   { href: "/others/", key: "nav.others" }
 ] satisfies Array<{
   href: string;
@@ -208,9 +240,9 @@ export const searchIndex = [
     text: "welcome note markdown workflow blog post 博客 文章 Markdown 工作流"
   },
   {
-    url: "/contact/",
-    title: { en: "Contact", zh: "联系" },
-    text: "contact email Peking University collaboration shuangbenchen25 rednote weibo 联系 邮箱 北京大学 合作 小红书 微博"
+    url: "/news/",
+    title: { en: "News", zh: "动态" },
+    text: "news updates findings activities recent notes dynamic 新见闻 更新 动态 活动 记录"
   },
   {
     url: "/others/",
@@ -229,6 +261,63 @@ export const tags = {
   research: ["Reinforcement Learning", "Robotics", "Datasets", "Training Infrastructure"],
   interests: ["Movies", "Puzzles", "Music Games", "Billiards", "Science Fiction"]
 };
+
+export const homeSections = [
+  {
+    href: "/academics/",
+    titleKey: "academics.title",
+    descKey: "academics.desc",
+    kickerKey: "home.academics.kicker",
+    summaryKey: "home.academics.summary"
+  },
+  {
+    href: "/projects/",
+    titleKey: "projects.title",
+    descKey: "projects.desc",
+    kickerKey: "home.projects.kicker",
+    summaryKey: "home.projects.summary"
+  },
+  {
+    href: "/blog/",
+    titleKey: "blog.title",
+    descKey: "blog.desc",
+    kickerKey: "home.blog.kicker",
+    summaryKey: "home.blog.summary"
+  },
+  {
+    href: "/news/",
+    titleKey: "news.title",
+    descKey: "news.desc",
+    kickerKey: "home.news.kicker",
+    summaryKey: "home.news.summary"
+  },
+  {
+    href: "/others/",
+    titleKey: "others.title",
+    descKey: "others.desc",
+    kickerKey: "home.others.kicker",
+    summaryKey: "home.others.summary"
+  }
+] satisfies Array<{
+  href: string;
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
+  kickerKey: TranslationKey;
+  summaryKey: TranslationKey;
+}>;
+
+export const contactLinks = [
+  { label: "Mail", href: "mailto:shuangbenchen25@stu.pku.edu.cn", icon: "mail", enabled: true },
+  { label: "REDnote", href: "https://xhslink.com/m/1FgmbTFA7AB", icon: "rednote", enabled: true },
+  { label: "Weibo", href: "https://weibo.com/u/5782415860", icon: "weibo", enabled: true },
+  { label: "GitHub", href: "https://github.com/shuangbenchen25", icon: "github", enabled: true },
+  { label: "LinkedIn", href: "", icon: "linkedin", enabled: false }
+] satisfies Array<{
+  label: string;
+  href: string;
+  icon: "mail" | "rednote" | "weibo" | "github" | "linkedin";
+  enabled: boolean;
+}>;
 
 export function t(key: TranslationKey, locale: Locale = "en") {
   return translations[locale][key];

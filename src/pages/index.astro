@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { t } from "../data/site";
+import { homeSections, t } from "../data/site";
 ---
 
 <BaseLayout>
@@ -25,6 +25,25 @@ import { t } from "../data/site";
           <div class="meta-line"><span>CV</span><strong><a class="text-link" href="/assets/cv/shuangben-chen-cv.pdf" data-i18n="card.cv">{t("card.cv")}</a></strong></div>
         </div>
       </aside>
+    </section>
+    <section class="section home-overview" aria-labelledby="home-overview-title">
+      <div class="section-label">
+        <h2 id="home-overview-title" data-i18n="home.overview.title">{t("home.overview.title")}</h2>
+        <p data-i18n="home.overview.desc">{t("home.overview.desc")}</p>
+      </div>
+      <div class="overview-grid">
+        {homeSections.map((section) => (
+          <a class="overview-card" href={section.href}>
+            <span class="eyebrow" data-i18n={section.kickerKey}>{t(section.kickerKey)}</span>
+            <span class="overview-card-head">
+              <strong data-i18n={section.titleKey}>{t(section.titleKey)}</strong>
+              <span data-i18n={section.descKey}>{t(section.descKey)}</span>
+            </span>
+            <span class="overview-card-body" data-i18n={section.summaryKey}>{t(section.summaryKey)}</span>
+            <span class="overview-more" data-i18n="home.more">{t("home.more")}</span>
+          </a>
+        ))}
+      </div>
     </section>
   </main>
 </BaseLayout>

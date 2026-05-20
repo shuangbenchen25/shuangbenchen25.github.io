@@ -1,6 +1,30 @@
+---
+import { contactLinks, t } from "../data/site";
+
+const activeContactLinks = contactLinks.filter((link) => link.enabled && link.href);
+
+const icons = {
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/></svg>',
+  rednote: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" fill="currentColor"/><text x="12" y="14.8" text-anchor="middle" font-size="6.2" font-weight="800" fill="var(--paper)" font-family="Avenir Next, sans-serif">RED</text></svg>',
+  weibo: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="currentColor"/><text x="12" y="15.2" text-anchor="middle" font-size="9" font-weight="800" fill="var(--paper)" font-family="PingFang SC, sans-serif">微</text></svg>',
+  github: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.93c.46.08.63-.2.63-.44v-1.55c-2.55.55-3.09-1.1-3.09-1.1-.42-1.06-1.02-1.34-1.02-1.34-.84-.57.06-.56.06-.56.92.07 1.4.95 1.4.95.82 1.4 2.15 1 2.67.76.08-.59.32-1 .58-1.23-2.04-.23-4.18-1.02-4.18-4.54 0-1 .36-1.82.95-2.47-.1-.23-.41-1.17.09-2.43 0 0 .77-.25 2.53.94A8.7 8.7 0 0 1 12 6.41c.78 0 1.55.1 2.28.31 1.76-1.19 2.53-.94 2.53-.94.5 1.26.19 2.2.09 2.43.6.65.95 1.47.95 2.47 0 3.53-2.15 4.3-4.2 4.53.33.29.63.85.63 1.72v2.55c0 .24.16.53.64.44A9.2 9.2 0 0 0 12 2.8Z"/></svg>',
+  linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.8 8.8H4.1v10.1h2.7V8.8ZM5.45 4.1a1.57 1.57 0 1 0 0 3.14 1.57 1.57 0 0 0 0-3.14Zm13.45 9.1c0-3.13-1.67-4.58-3.9-4.58a3.36 3.36 0 0 0-3.02 1.66h-.04V8.8H9.35v10.1h2.7v-5c0-1.32.25-2.6 1.88-2.6 1.61 0 1.63 1.5 1.63 2.68v4.92h2.7v-5.7h.64Z"/></svg>'
+} as const;
+---
+
 <footer class="footer">
   <div class="site-shell">
-    <span>© 2026 Shuangben Chen</span>
-    <span data-last-modified>Last updated</span>
+    <div class="footer-meta">
+      <span>© 2026 Shuangben Chen</span>
+      <span data-last-modified>Last updated</span>
+    </div>
+    <nav class="footer-contact" aria-label={t("footer.contact")}>
+      <span data-i18n="footer.contact">{t("footer.contact")}</span>
+      {activeContactLinks.map((link) => (
+        <a href={link.href} aria-label={link.label} title={link.label} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noreferrer" : undefined}>
+          <Fragment set:html={icons[link.icon]} />
+        </a>
+      ))}
+    </nav>
   </div>
 </footer>
