@@ -3,11 +3,29 @@ import PageHead from "../../components/PageHead.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { t } from "../../data/site";
 
-const modules = import.meta.glob("../../content/blog/*.md", { eager: true });
+const modules = import.meta.glob("../../content/blog/**/*.md", { eager: true });
+
+function slugFromPath(path: string) {
+  return path
+    .replace("../../content/blog/", "")
+    .replace(/\.md$/, "")
+    .split("/")
+    .map((part) =>
+      part
+        .trim()
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+    )
+    .filter(Boolean)
+    .join("--");
+}
+
 const posts = Object.entries(modules)
   .map(([path, mod]) => {
     const post = mod as { frontmatter: { title: string; date: string | Date; description?: string } };
-    const slug = path.split("/").pop()?.replace(/\.md$/, "") || "";
+    const slug = slugFromPath(path);
     const date = new Date(post.frontmatter.date);
     return { ...post.frontmatter, slug, date };
   })

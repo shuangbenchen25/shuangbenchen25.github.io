@@ -61,12 +61,20 @@ export const translations = {
 
 ## 添加博客
 
-现在 Blog 已经由 Astro 自动读取 Markdown。新增文章只需要：
-
-1. 在 `src/content/blog/` 新建 Markdown 文件，例如：
+现在 Blog 已经由 Astro 自动读取 Markdown。新增文章放在 `src/content/blog/` 下即可；也可以按主题建子文件夹管理，例如：
 
 ```text
-2026-05-20-my-note.md
+src/content/blog/course-notes/
+src/content/blog/research/
+src/content/blog/film/
+```
+
+新增文章步骤：
+
+1. 在 `src/content/blog/` 或它的任意子文件夹中新建 Markdown 文件，例如：
+
+```text
+src/content/blog/research/2026-05-20-my-note.md
 ```
 
 2. 写 front matter：
@@ -84,10 +92,12 @@ description: "One sentence summary."
 构建时，Astro 会自动生成：
 
 ```text
-/blog/posts/2026-05-20-my-note/
+/blog/posts/research--2026-05-20-my-note/
 ```
 
 并自动把它列进 `/blog/`。
+
+文件名建议使用英文、数字和短横线。中文标题可以写在 front matter 的 `title` 里；文件名里不要使用空格、`&`、`#` 这类符号。
 
 ## 添加名词解释页
 

@@ -2,9 +2,25 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
-  const modules = import.meta.glob("../../../content/blog/*.md", { eager: true });
+  const modules = import.meta.glob("../../../content/blog/**/*.md", { eager: true });
+  const slugFromPath = (path: string) =>
+    path
+      .replace("../../../content/blog/", "")
+      .replace(/\.md$/, "")
+      .split("/")
+      .map((part) =>
+        part
+          .trim()
+          .toLowerCase()
+          .replace(/&/g, "and")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "")
+      )
+      .filter(Boolean)
+      .join("--");
+
   return Object.entries(modules).map(([path, mod]) => {
-    const slug = path.split("/").pop()?.replace(/\.md$/, "") || "";
+    const slug = slugFromPath(path);
     return {
       params: { slug },
       props: { post: mod }
