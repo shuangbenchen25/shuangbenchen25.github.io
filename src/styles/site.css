@@ -13,8 +13,8 @@
     --shadow: 0 24px 70px rgba(31, 38, 35, 0.13);
     --radius: 8px;
     --font-display: "New York", "Iowan Old Style", Athelas, Charter, Georgia, serif;
-    --font-body: "Avenir Next", Optima, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    --font-ui: "Avenir Next", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    --font-body: "SF Pro Text", "Helvetica Neue", Optima, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-ui: "SF Pro Text", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", sans-serif;
 }
 
 html[data-theme="dark"] {
@@ -101,7 +101,7 @@ input {
     gap: 10px;
     font-family: var(--font-display);
     font-size: 1.34rem;
-    font-weight: 700;
+    font-weight: 650;
     line-height: 1;
     letter-spacing: 0;
 }
@@ -109,7 +109,7 @@ input {
 .brand-surname {
     color: var(--forest);
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 700;
 }
 
 html[data-theme="dark"] .brand-surname {
@@ -420,51 +420,71 @@ h1 {
     padding-top: 68px;
 }
 
-.overview-grid {
+.section-guide {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    border-top: 1px solid var(--line);
 }
 
-.overview-card {
+.guide-row {
     display: grid;
-    min-height: 230px;
+    grid-template-columns: minmax(220px, 0.38fr) minmax(0, 1fr);
+    gap: clamp(22px, 5vw, 64px);
+    border-bottom: 1px solid var(--line);
+    padding: 28px 0;
+}
+
+.guide-index {
+    display: grid;
     align-content: start;
-    gap: 18px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 24px;
-    background: color-mix(in srgb, var(--panel-strong) 68%, transparent);
-    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    gap: 10px;
 }
 
-.overview-card:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--forest) 42%, var(--line));
-    background: color-mix(in srgb, var(--panel-strong) 88%, transparent);
-}
-
-.overview-card-head {
-    display: grid;
-    gap: 8px;
-}
-
-.overview-card-head strong {
+.guide-index strong {
     color: var(--ink);
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 600;
-    line-height: 1.02;
+    font-size: clamp(1.65rem, 3.5vw, 2.65rem);
+    font-weight: 520;
+    line-height: 0.98;
 }
 
-.overview-card-head span,
-.overview-card-body {
+.guide-index span:last-child {
     color: var(--muted);
     font-family: var(--font-ui);
+    font-size: 0.92rem;
+    line-height: 1.55;
 }
 
-.overview-card-body {
-    line-height: 1.72;
+.guide-detail {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+}
+
+.guide-detail p {
+    max-width: 760px;
+    margin: 0;
+    color: color-mix(in srgb, var(--ink) 84%, var(--muted));
+    font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+    line-height: 1.7;
+}
+
+.guide-detail ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.guide-detail li {
+    margin: 0;
+    border-left: 2px solid color-mix(in srgb, var(--forest) 42%, transparent);
+    padding-left: 12px;
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    line-height: 1.55;
 }
 
 .overview-more {
@@ -474,7 +494,7 @@ h1 {
     color: var(--forest);
     font-family: var(--font-ui);
     font-size: 0.84rem;
-    font-weight: 800;
+    font-weight: 680;
 }
 
 .meta-line {
@@ -686,7 +706,7 @@ h2 {
     color: var(--brick);
     font-family: var(--font-ui);
     font-size: 0.78rem;
-    font-weight: 800;
+    font-weight: 680;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -718,7 +738,7 @@ h2 {
     color: var(--olive);
     font-family: var(--font-ui);
     font-size: 0.83rem;
-    font-weight: 800;
+    font-weight: 680;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -756,7 +776,7 @@ li + li {
 
 .text-link {
     color: var(--forest);
-    font-weight: 700;
+    font-weight: 650;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -786,7 +806,7 @@ li + li {
 
 .term-link {
     color: var(--forest);
-    font-weight: 800;
+    font-weight: 680;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -832,7 +852,7 @@ li + li {
 .post-description {
     color: color-mix(in srgb, var(--ink) 78%, var(--muted));
     font-size: 0.95rem;
-    font-weight: 700;
+    font-weight: 620;
     line-height: 1.55;
 }
 
@@ -846,7 +866,7 @@ li + li {
 .post-date {
     color: var(--olive);
     font-size: 0.82rem;
-    font-weight: 800;
+    font-weight: 680;
     letter-spacing: 0.04em;
     white-space: nowrap;
 }
@@ -918,7 +938,7 @@ li + li {
     color: var(--forest);
     font-family: var(--font-ui);
     font-size: 0.82rem;
-    font-weight: 800;
+    font-weight: 680;
     white-space: nowrap;
     transition: color 180ms ease;
 }
@@ -945,7 +965,7 @@ li + li {
     margin: 0;
     color: color-mix(in srgb, var(--ink) 78%, var(--muted));
     font-family: var(--font-ui);
-    font-weight: 700;
+    font-weight: 620;
     line-height: 1.58;
 }
 
@@ -1211,7 +1231,8 @@ li + li {
         position: static;
     }
 
-    .overview-grid {
+    .guide-row,
+    .guide-detail ul {
         grid-template-columns: 1fr;
     }
 }
@@ -1234,7 +1255,8 @@ li + li {
 
     .split,
     .project-menu,
-    .overview-grid {
+    .guide-row,
+    .guide-detail ul {
         grid-template-columns: 1fr;
     }
 

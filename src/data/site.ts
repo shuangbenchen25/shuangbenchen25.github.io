@@ -24,19 +24,29 @@ export const translations = {
     "card.research.label": "Research Unit",
     "card.research.value": "CFCS, PKU",
     "card.cv": "Download PDF",
-    "home.overview.title": "Explore",
-    "home.overview.desc": "A quick index of the main sections.",
+    "home.overview.title": "Section Guide",
+    "home.overview.desc": "Five paths through the site, with the most useful entry points collected here.",
     "home.more": "More",
     "home.academics.kicker": "Academic record",
     "home.academics.summary": "Peking University, Yuanpei College; AI major; coursework, scholarships, language scores, and technical skills.",
+    "home.academics.point1": "PKU Yuanpei College, Artificial Intelligence",
+    "home.academics.point2": "Coursework, awards, IELTS, CET-4, and technical stack",
     "home.projects.kicker": "Research & design",
     "home.projects.summary": "RL post-training infrastructure for robotic manipulation, Yuanpei Design Lab work, and public-facing media practice.",
+    "home.projects.point1": "Research: robotic manipulation and RL infrastructure",
+    "home.projects.point2": "Design: posters, visual systems, and media practice",
     "home.blog.kicker": "Notes",
     "home.blog.summary": "Research notes, film writing, class notes, and longer reflections maintained as Markdown posts.",
+    "home.blog.point1": "Markdown-based essays and class notes",
+    "home.blog.point2": "Film, research, and personal reflections",
     "home.news.kicker": "Recent updates",
     "home.news.summary": "Short updates about new findings, site changes, activities, and things worth recording.",
+    "home.news.point1": "Timeline of recent activities and findings",
+    "home.news.point2": "Expandable Markdown updates",
     "home.others.kicker": "Beyond coursework",
     "home.others.summary": "Movie clubs, Super Brain, interests, and other activities outside the core academic track.",
+    "home.others.point1": "Activities, clubs, and competition notes",
+    "home.others.point2": "Personal interests and context pages",
     "academics.title": "Academics",
     "academics.desc": "Education, coursework, awards, and core skills.",
     "academics.pku.title": "Peking University, Yuanpei College",
@@ -113,19 +123,29 @@ export const translations = {
     "card.research.label": "科研单位",
     "card.research.value": "北大前沿计算研究中心",
     "card.cv": "下载 CV",
-    "home.overview.title": "概览",
-    "home.overview.desc": "快速索引网站的主要分区。",
+    "home.overview.title": "分区导览",
+    "home.overview.desc": "把网站的五条主要路径和最值得进入的内容集中在这里。",
     "home.more": "更多",
     "home.academics.kicker": "学术记录",
     "home.academics.summary": "北京大学元培学院，人工智能方向；整理课程、奖学金、语言成绩与技术技能。",
+    "home.academics.point1": "北京大学元培学院，人工智能方向",
+    "home.academics.point2": "课程、奖项、IELTS、CET-4 与技术栈",
     "home.projects.kicker": "科研与设计",
     "home.projects.summary": "机器人操作方向 RL 后训练基础设施、元培设计实验室实践，以及公共表达相关内容创作。",
+    "home.projects.point1": "科研：机器人操作与 RL 基础设施",
+    "home.projects.point2": "设计：海报、视觉系统与媒体实践",
     "home.blog.kicker": "笔记",
     "home.blog.summary": "以 Markdown 维护科研笔记、电影写作、课程笔记和较长的个人思考。",
+    "home.blog.point1": "Markdown 维护的长文与课程笔记",
+    "home.blog.point2": "电影、科研与个人思考",
     "home.news.kicker": "近期更新",
     "home.news.summary": "记录最近的新见闻、网站更新、活动和其他值得保留的小动态。",
+    "home.news.point1": "近期活动与新见闻时间轴",
+    "home.news.point2": "可展开阅读的 Markdown 动态",
     "home.others.kicker": "课程之外",
     "home.others.summary": "电影社、最强大脑、兴趣与核心学术路径之外的活动。",
+    "home.others.point1": "活动、社团与竞赛记录",
+    "home.others.point2": "个人兴趣和补充说明页",
     "academics.title": "学术",
     "academics.desc": "教育背景、课程、奖项与核心技能。",
     "academics.pku.title": "北京大学，元培学院",
@@ -268,35 +288,40 @@ export const homeSections = [
     titleKey: "academics.title",
     descKey: "academics.desc",
     kickerKey: "home.academics.kicker",
-    summaryKey: "home.academics.summary"
+    summaryKey: "home.academics.summary",
+    pointKeys: ["home.academics.point1", "home.academics.point2"]
   },
   {
     href: "/projects/",
     titleKey: "projects.title",
     descKey: "projects.desc",
     kickerKey: "home.projects.kicker",
-    summaryKey: "home.projects.summary"
+    summaryKey: "home.projects.summary",
+    pointKeys: ["home.projects.point1", "home.projects.point2"]
   },
   {
     href: "/blog/",
     titleKey: "blog.title",
     descKey: "blog.desc",
     kickerKey: "home.blog.kicker",
-    summaryKey: "home.blog.summary"
+    summaryKey: "home.blog.summary",
+    pointKeys: ["home.blog.point1", "home.blog.point2"]
   },
   {
     href: "/news/",
     titleKey: "news.title",
     descKey: "news.desc",
     kickerKey: "home.news.kicker",
-    summaryKey: "home.news.summary"
+    summaryKey: "home.news.summary",
+    pointKeys: ["home.news.point1", "home.news.point2"]
   },
   {
     href: "/others/",
     titleKey: "others.title",
     descKey: "others.desc",
     kickerKey: "home.others.kicker",
-    summaryKey: "home.others.summary"
+    summaryKey: "home.others.summary",
+    pointKeys: ["home.others.point1", "home.others.point2"]
   }
 ] satisfies Array<{
   href: string;
@@ -304,6 +329,7 @@ export const homeSections = [
   descKey: TranslationKey;
   kickerKey: TranslationKey;
   summaryKey: TranslationKey;
+  pointKeys: TranslationKey[];
 }>;
 
 export const contactLinks = [

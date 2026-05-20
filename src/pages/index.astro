@@ -31,17 +31,22 @@ import { homeSections, t } from "../data/site";
         <h2 id="home-overview-title" data-i18n="home.overview.title">{t("home.overview.title")}</h2>
         <p data-i18n="home.overview.desc">{t("home.overview.desc")}</p>
       </div>
-      <div class="overview-grid">
+      <div class="section-guide">
         {homeSections.map((section) => (
-          <a class="overview-card" href={section.href}>
-            <span class="eyebrow" data-i18n={section.kickerKey}>{t(section.kickerKey)}</span>
-            <span class="overview-card-head">
+          <article class="guide-row">
+            <a class="guide-index" href={section.href}>
+              <span class="eyebrow" data-i18n={section.kickerKey}>{t(section.kickerKey)}</span>
               <strong data-i18n={section.titleKey}>{t(section.titleKey)}</strong>
               <span data-i18n={section.descKey}>{t(section.descKey)}</span>
-            </span>
-            <span class="overview-card-body" data-i18n={section.summaryKey}>{t(section.summaryKey)}</span>
-            <span class="overview-more" data-i18n="home.more">{t("home.more")}</span>
-          </a>
+            </a>
+            <div class="guide-detail">
+              <p data-i18n={section.summaryKey}>{t(section.summaryKey)}</p>
+              <ul>
+                {section.pointKeys.map((key) => <li data-i18n={key}>{t(key)}</li>)}
+              </ul>
+              <a class="overview-more" href={section.href} data-i18n="home.more">{t("home.more")}</a>
+            </div>
+          </article>
         ))}
       </div>
     </section>
