@@ -703,7 +703,7 @@ li + li {
 
 .post-list {
     display: grid;
-    gap: 12px;
+    gap: 0;
 }
 
 .project-menu {
@@ -732,17 +732,62 @@ li + li {
 }
 
 .post-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
     border-bottom: 1px solid var(--line);
-    padding: 0 0 12px;
+    padding: 22px 0;
     font-family: var(--font-ui);
+    transition: color 180ms ease, transform 180ms ease;
+}
+
+.post-item:first-child {
+    padding-top: 0;
 }
 
 .post-item:last-child {
     border-bottom: 0;
     padding-bottom: 0;
+}
+
+.post-item:hover {
+    color: var(--forest);
+    transform: translateX(3px);
+}
+
+.post-item-main {
+    display: grid;
+    gap: 8px;
+}
+
+.post-item strong {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.18rem, 2vw, 1.55rem);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.post-description {
+    color: color-mix(in srgb, var(--ink) 78%, var(--muted));
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.55;
+}
+
+.post-excerpt {
+    max-width: 760px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.72;
+}
+
+.post-date {
+    color: var(--olive);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
 }
 
 .footer {

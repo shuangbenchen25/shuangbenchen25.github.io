@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { t } from "../../data/site";
 
 const modules = import.meta.glob("../../content/blog/**/*.md", { eager: true });
+const rawModules = import.meta.glob("../../content/blog/**/*.md", { eager: true, query: "?raw", import: "default" });
 
 function slugFromPath(path: string) {
   return path
@@ -22,12 +23,33 @@ function slugFromPath(path: string) {
     .join("--");
 }
 
+function excerptFromMarkdown(raw: string, maxLength = 180) {
+  const withoutFrontmatter = raw.replace(/^---[\s\S]*?---/, "");
+  const text = withoutFrontmatter
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/\$\$[\s\S]*?\$\$/g, " ")
+    .replace(/\$([^$]+)\$/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^---+$/gm, " ")
+    .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)]\([^)]*\)/g, "$1")
+    .replace(/[*_~`>|-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return `${text.slice(0, maxLength).trim()}...`;
+}
+
 const posts = Object.entries(modules)
   .map(([path, mod]) => {
     const post = mod as { frontmatter: { title: string; date: string | Date; description?: string } };
     const slug = slugFromPath(path);
     const date = new Date(post.frontmatter.date);
-    return { ...post.frontmatter, slug, date };
+    const raw = String(rawModules[path] || "");
+    return { ...post.frontmatter, slug, date, excerpt: excerptFromMarkdown(raw) };
   })
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 ---
@@ -41,8 +63,12 @@ const posts = Object.entries(modules)
         <div class="post-list">
           {posts.map((post) => (
             <a class="post-item" href={`/blog/posts/${post.slug}/`}>
-              <strong>{post.title}</strong>
-              <span>{post.date.toISOString().slice(0, 10)}</span>
+              <span class="post-item-main">
+                <strong>{post.title}</strong>
+                {post.description && <span class="post-description">{post.description}</span>}
+                {post.excerpt && <span class="post-excerpt">{post.excerpt}</span>}
+              </span>
+              <span class="post-date">{post.date.toISOString().slice(0, 10)}</span>
             </a>
           ))}
         </div>
