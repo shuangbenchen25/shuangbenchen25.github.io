@@ -4,34 +4,15 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { t } from "../../data/site";
 
 const modules = import.meta.glob("../../content/news/**/*.md", { eager: true });
-const rawModules = import.meta.glob("../../content/news/**/*.md", { eager: true, query: "?raw", import: "default" });
-
-function excerptFromMarkdown(raw: string, maxLength = 150) {
-  const withoutFrontmatter = raw.replace(/^---[\s\S]*?---/, "");
-  const text = withoutFrontmatter
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/^#{1,6}\s+/gm, "")
-    .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
-    .replace(/\[([^\]]+)]\([^)]*\)/g, "$1")
-    .replace(/[*_~`>|-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  if (text.length <= maxLength) {
-    return text;
-  }
-  return `${text.slice(0, maxLength).trim()}...`;
-}
 
 const newsItems = Object.entries(modules)
-  .map(([path, mod]) => {
+  .map(([, mod]) => {
     const item = mod as {
       frontmatter: { title: string; date: string | Date; description?: string };
       Content: (_props: Record<string, never>) => unknown;
     };
-    const raw = String(rawModules[path] || "");
     const date = new Date(item.frontmatter.date);
-    return { ...item.frontmatter, date, excerpt: excerptFromMarkdown(raw), Content: item.Content };
+    return { ...item.frontmatter, date, Content: item.Content };
   })
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 ---
@@ -50,9 +31,8 @@ const newsItems = Object.entries(modules)
                 <time class="date" datetime={item.date.toISOString()}>{item.date.toISOString().slice(0, 10)}</time>
                 <strong>{item.title}</strong>
                 {item.description && <span class="news-description">{item.description}</span>}
-                {item.excerpt && <span class="news-excerpt">{item.excerpt}</span>}
+                <span class="news-read-more">Read more</span>
               </span>
-              <span class="news-read-more">Read more</span>
             </summary>
             <div class="news-full markdown-body">
               <item.Content />
