@@ -138,12 +138,20 @@ function markActiveNav() {
   });
 }
 
+function setMenuOpen(isOpen: boolean) {
+  if (!nav) {
+    return;
+  }
+  nav.classList.toggle("is-open", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
+  menuToggle?.setAttribute("aria-expanded", String(isOpen));
+}
+
 menuToggle?.addEventListener("click", () => {
   if (!nav) {
     return;
   }
-  const isOpen = nav.classList.toggle("is-open");
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  setMenuOpen(!nav.classList.contains("is-open"));
 });
 
 languageToggle?.addEventListener("click", () => {
@@ -171,8 +179,7 @@ document.addEventListener("click", (event) => {
     searchResults?.classList.remove("is-open");
   }
   if (nav?.classList.contains("is-open") && !target.closest(".nav")) {
-    nav.classList.remove("is-open");
-    menuToggle?.setAttribute("aria-expanded", "false");
+    setMenuOpen(false);
   }
 });
 
@@ -182,8 +189,7 @@ document.addEventListener("keydown", (event) => {
     searchInput?.focus();
   }
   if (event.key === "Escape" && nav?.classList.contains("is-open")) {
-    nav.classList.remove("is-open");
-    menuToggle?.setAttribute("aria-expanded", "false");
+    setMenuOpen(false);
   }
 });
 

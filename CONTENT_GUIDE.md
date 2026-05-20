@@ -89,6 +89,18 @@ description: "One sentence summary."
 
 3. 在下面直接写正文 Markdown。
 
+正文支持常规 Markdown 和 LaTeX 公式：
+
+```md
+Inline formula: $H(p,q)$
+
+Block formula:
+
+$$
+H(p,q)=\sum_{j=1}^n -p_j\log(q_j)
+$$
+```
+
 构建时，Astro 会自动生成：
 
 ```text
