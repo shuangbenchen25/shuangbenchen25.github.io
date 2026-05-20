@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  const modules = import.meta.glob("../../../content/blog/*.md", { eager: true });
+  return Object.entries(modules).map(([path, mod]) => {
+    const slug = path.split("/").pop()?.replace(/\.md$/, "") || "";
+    return {
+      params: { slug },
+      props: { post: mod }
+    };
+  });
+}
+
+const { post } = Astro.props as {
+  post: {
+    frontmatter: { title: string; date: string | Date; description?: string };
+    Content: unknown;
+  };
+};
+const { Content } = post as { Content: (_props: Record<string, never>) => unknown };
+const date = new Date(post.frontmatter.date);
+const isoDate = date.toISOString().slice(0, 10);
+---
+
+<BaseLayout title={`${post.frontmatter.title} | Shuangben Chen`} description={post.frontmatter.description || post.frontmatter.title}>
+  <main class="site-shell">
+    <article class="page-head">
+      <p class="eyebrow">{isoDate}</p>
+      <h1 class="page-title">{post.frontmatter.title}</h1>
+      {post.frontmatter.description && <p>{post.frontmatter.description}</p>}
+    </article>
+    <section class="section">
+      <div class="section-label"><h2>Note</h2><p>Blog post</p></div>
+      <article class="card">
+        <Content />
+      </article>
+    </section>
+  </main>
+</BaseLayout>

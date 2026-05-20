@@ -1,0 +1,20 @@
+---
+import PageHead from "../../../components/PageHead.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { tags, t } from "../../../data/site";
+---
+
+<BaseLayout title="Research Projects | Shuangben Chen" description="Research projects by Shuangben Chen.">
+  <main class="site-shell">
+    <PageHead titleKey="projects.research.nav" descKey="projects.research.body" title={t("projects.research.nav")} desc={t("projects.research.body")} />
+    <section class="section">
+      <div class="section-label"><h2 data-i18n="projects.research.nav">{t("projects.research.nav")}</h2><p>RL · Robotics · Datasets</p></div>
+      <article class="card">
+        <p class="eyebrow" data-i18n="projects.research.type">{t("projects.research.type")}</p>
+        <h3 data-i18n="projects.research.title">{t("projects.research.title")}</h3>
+        <p data-i18n="projects.research.body">{t("projects.research.body")}</p>
+        <div class="tags">{tags.research.map((tag) => <span class="tag">{tag}</span>)}</div>
+      </article>
+    </section>
+  </main>
+</BaseLayout>

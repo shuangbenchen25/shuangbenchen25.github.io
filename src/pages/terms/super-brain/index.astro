@@ -1,0 +1,17 @@
+---
+import PageHead from "../../../components/PageHead.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { t } from "../../../data/site";
+---
+
+<BaseLayout title="Super Brain | Shuangben Chen" description="Context note about Super Brain and Shuangben Chen's participation.">
+  <main class="site-shell">
+    <PageHead titleKey="terms.superbrain.title" descKey="terms.superbrain.desc" title={t("terms.superbrain.title")} desc={t("terms.superbrain.desc")} />
+    <section class="section">
+      <div class="section-label"><h2 data-i18n="terms.superbrain.title">{t("terms.superbrain.title")}</h2><p data-i18n="terms.superbrain.desc">{t("terms.superbrain.desc")}</p></div>
+      <article class="card">
+        <p data-i18n="terms.superbrain.body">{t("terms.superbrain.body")}</p>
+      </article>
+    </section>
+  </main>
+</BaseLayout>

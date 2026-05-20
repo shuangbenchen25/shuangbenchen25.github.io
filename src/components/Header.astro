@@ -1,0 +1,38 @@
+---
+import { navItems, t } from "../data/site";
+---
+
+<header class="topbar">
+  <nav class="site-shell nav" aria-label="Primary navigation">
+    <a class="brand" href="/" aria-label="Shuangben Chen homepage">
+      <img class="brand-mark" src="/assets/brand/favicon.svg" alt="">
+      <span>Shuangben</span> <span class="brand-surname">Chen</span>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <span class="menu-toggle-lines" aria-hidden="true"><span></span><span></span></span>
+      <span>Menu</span>
+    </button>
+    <div class="nav-links">
+      {navItems.map((item) => (
+        item.children ? (
+          <div class="nav-item">
+            <a href={item.href} data-i18n={item.key}>{t(item.key)}</a>
+            <div class="nav-submenu">
+              {item.children.map((child) => <a href={child.href} data-i18n={child.key}>{t(child.key)}</a>)}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} data-i18n={item.key}>{t(item.key)}</a>
+        )
+      ))}
+    </div>
+    <div class="nav-tools" aria-label="Site tools">
+      <div class="search">
+        <input id="site-search" type="search" autocomplete="off" data-i18n-placeholder="search.placeholder" placeholder={t("search.placeholder")}>
+        <div id="search-results" class="search-results" aria-live="polite"></div>
+      </div>
+      <button class="tool-button" id="language-toggle" type="button" aria-label="Switch language">中文</button>
+      <button class="theme-cycle" id="theme-toggle" type="button" aria-label="Theme"></button>
+    </div>
+  </nav>
+</header>

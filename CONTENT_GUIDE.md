@@ -1,113 +1,152 @@
 # 网站内容维护指南
 
-这是一份给 `shuangbenchen25.github.io` 的内容修改说明。当前网站是静态多页结构，没有前端构建步骤，也没有外部依赖。
+这个仓库现在已经迁移为 Astro 静态站点。以后优先维护 `src/` 和 `public/`，根目录下旧的 `index.html`、`academics/index.html` 等文件只是迁移前的静态快照。
 
-## 常用文件
+## 最常改的文件
 
-- 首页内容：`index.html`
-- 学术页面：`academics/index.html`
-- 项目总览：`projects/index.html`
-- 研究项目：`projects/research/index.html`
-- 设计作品集：`projects/design/index.html`
-- 博客列表：`blog/index.html`
-- 博客文章源码：`blog/posts/*.md`
-- 博客文章页面：`blog/posts/YYYY-MM-DD-slug/index.html`
-- 联系方式：`contact/index.html`
-- 其他经历：`others/index.html`
-- 名词解释页：`terms/*/index.html`
-- 全站样式：`assets/site.css`
-- 双语文本、搜索、主题切换、页脚更新时间：`assets/site.js`
-- CV 文件：`assets/cv/shuangben-chen-cv.pdf`
+- 全站双语文本、导航、搜索索引：`src/data/site.ts`
+- 全站布局：`src/layouts/BaseLayout.astro`
+- 导航栏：`src/components/Header.astro`
+- 页脚：`src/components/Footer.astro`
+- 全站样式：`src/styles/site.css`
+- 首页：`src/pages/index.astro`
+- 学术页：`src/pages/academics/index.astro`
+- 项目总览：`src/pages/projects/index.astro`
+- 研究项目：`src/pages/projects/research/index.astro`
+- 设计作品集：`src/pages/projects/design/index.astro`
+- 博客列表：`src/pages/blog/index.astro`
+- 博客文章页模板：`src/pages/blog/posts/[slug].astro`
+- 博客 Markdown：`src/content/blog/*.md`
+- 联系页：`src/pages/contact/index.astro`
+- 其他页：`src/pages/others/index.astro`
+- 名词解释页：`src/pages/terms/*/index.astro`
+- CV：`public/assets/cv/shuangben-chen-cv.pdf`
 
-## 修改双语文字
+## 修改中英文
 
-多数页面文字由 `assets/site.js` 里的 `translations` 控制。修改时同时改英文 `en` 和中文 `zh`，例如：
+所有可切换语言的文本集中在：
 
-```js
-"projects.research.title": "RL Post-training Infrastructure for Robotic Manipulation"
+```text
+src/data/site.ts
 ```
 
-HTML 中通过 `data-i18n="projects.research.title"` 调用这些文本。只改 HTML 而不改 `assets/site.js`，切换语言后可能会被旧文案覆盖。
+结构大致是：
 
-## 修改搜索结果
-
-站内搜索结果由 `assets/site.js` 里的 `searchIndex` 控制。新增页面后，建议补一项：
-
-```js
-{
-    url: "/new-page/",
-    title: { en: "New Page", zh: "新页面" },
-    text: "keywords for search 中文关键词"
+```ts
+export const translations = {
+  en: {
+    "hero.lede": "English text"
+  },
+  zh: {
+    "hero.lede": "中文文本"
+  }
 }
 ```
 
-`text` 不会直接显示完整内容，主要用于匹配关键词。
+页面中通过 `data-i18n="hero.lede"` 绑定这个 key。修改时请同时改 `en` 和 `zh`，这样中英文切换才不会出现一边新、一边旧的问题。
 
-## 添加博客文章
+## 修改搜索
 
-1. 在 `blog/posts/` 下新建 Markdown 源文件，例如 `2026-05-20-my-note.md`。
-2. 文件开头写 front matter：
+站内搜索数据在 `src/data/site.ts` 的 `searchIndex` 中。新增页面后，补一项：
+
+```ts
+{
+  url: "/new-page/",
+  title: { en: "New Page", zh: "新页面" },
+  text: "keywords 中文关键词"
+}
+```
+
+`text` 主要用于匹配关键词，不会完整显示在页面上。
+
+## 添加博客
+
+现在 Blog 已经由 Astro 自动读取 Markdown。新增文章只需要：
+
+1. 在 `src/content/blog/` 新建 Markdown 文件，例如：
+
+```text
+2026-05-20-my-note.md
+```
+
+2. 写 front matter：
 
 ```yaml
 ---
-layout: post
 title: "My Note"
 date: 2026-05-20
 description: "One sentence summary."
 ---
 ```
 
-3. 为本地静态预览新增对应 HTML 页面：`blog/posts/2026-05-20-my-note/index.html`。
-4. 在 `blog/index.html` 的 `.post-list` 中添加文章链接。
-5. 在 `assets/site.js` 的 `searchIndex` 中添加博客文章搜索项。
+3. 在下面直接写正文 Markdown。
 
-如果以后想实现“只拖入 Markdown 并 push 后自动生成列表”，需要增加一个 GitHub Pages build workflow 来扫描 `blog/posts/*.md` 并生成 HTML 与博客列表。
+构建时，Astro 会自动生成：
+
+```text
+/blog/posts/2026-05-20-my-note/
+```
+
+并自动把它列进 `/blog/`。
 
 ## 添加名词解释页
 
-如果正文中反复出现某个专有名词，可以在 `terms/` 下新增页面，例如：
+如果要给某个常见术语做解释页：
+
+1. 新建目录：
 
 ```text
-terms/my-term/index.html
+src/pages/terms/my-term/index.astro
 ```
 
-然后在正文中把对应词改成链接：
+2. 可以参考 `src/pages/terms/super-brain/index.astro`。
+3. 在正文里链接它：
 
 ```html
 <a class="term-link" href="/terms/my-term/">My Term</a>
 ```
 
-新增后也建议更新 `assets/site.js` 的 `searchIndex`。
+4. 在 `src/data/site.ts` 的 `searchIndex` 中补搜索项。
 
 ## 更新 CV
 
-直接替换这个文件即可：
+替换这个文件：
 
 ```text
-assets/cv/shuangben-chen-cv.pdf
+public/assets/cv/shuangben-chen-cv.pdf
 ```
 
-保持文件名不变，网站里的 CV 链接就不需要改。
+保持文件名不变，页面链接就不用改。
 
-## 本地预览
+## 本地开发
 
-在仓库根目录运行：
+安装依赖：
 
 ```bash
-python3 -m http.server 8000
+npm install
 ```
 
-然后打开：
+启动开发服务器：
 
-```text
-http://127.0.0.1:8000/
+```bash
+npm run dev
 ```
 
-修改 HTML、CSS、JS 后刷新浏览器即可。Safari 有时会缓存旧页面，看到异常时先强制刷新。
+构建检查：
+
+```bash
+npm run build
+```
+
+预览构建结果：
+
+```bash
+npm run preview
+```
 
 ## 发布
 
-确认本地预览正常后：
+正常提交并推送即可：
 
 ```bash
 git status --short
@@ -116,4 +155,4 @@ git commit -m "Your commit message"
 git push origin main
 ```
 
-GitHub Pages 刷新线上页面通常需要几十秒到几分钟。
+GitHub Actions 会自动运行 Astro 构建并部署 `dist/` 到 GitHub Pages。首次切换到 Actions 部署时，如果线上仍显示旧页面，需要在 GitHub 仓库的 Pages 设置里确认 Source 使用 GitHub Actions。

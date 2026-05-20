@@ -1,0 +1,42 @@
+---
+import PageHead from "../../components/PageHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { tags, t } from "../../data/site";
+---
+
+<BaseLayout title="Academics | Shuangben Chen" description="Academics, education, awards, and skills of Shuangben Chen.">
+  <main class="site-shell">
+    <PageHead titleKey="academics.title" descKey="academics.desc" title={t("academics.title")} desc={t("academics.desc")} />
+    <section class="section">
+      <div class="section-label">
+        <h2 data-i18n="academics.title">{t("academics.title")}</h2>
+        <p data-i18n="academics.desc">{t("academics.desc")}</p>
+      </div>
+      <div class="content-grid">
+        <article class="timeline-item card">
+          <div class="date">Aug 2025 - Present</div>
+          <div>
+            <h3 data-i18n="academics.pku.title">{t("academics.pku.title")}</h3>
+            <p class="muted" data-i18n="academics.pku.meta">{t("academics.pku.meta")}</p>
+            <ul>
+              <li data-i18n="academics.pku.item1">{t("academics.pku.item1")}</li>
+              <li data-i18n="academics.pku.item2">{t("academics.pku.item2")}</li>
+              <li data-i18n="academics.pku.item3">{t("academics.pku.item3")}</li>
+            </ul>
+          </div>
+        </article>
+        <div class="split">
+          <article class="card"><p class="eyebrow">Dec 2025</p><h3 data-i18n="academics.award1.title">{t("academics.award1.title")}</h3><p class="muted" data-i18n="academics.award1.org">{t("academics.award1.org")}</p></article>
+          <article class="card"><p class="eyebrow">Jun 2025</p><h3 data-i18n="academics.award2.title">{t("academics.award2.title")}</h3><p class="muted" data-i18n="academics.award2.org">{t("academics.award2.org")}</p></article>
+        </div>
+        <article class="card">
+          <h3 data-i18n="academics.skills.title">{t("academics.skills.title")}</h3>
+          <div class="tags">
+            {tags.skills.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+          <p class="muted" data-i18n="academics.skills.note">{t("academics.skills.note")}</p>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

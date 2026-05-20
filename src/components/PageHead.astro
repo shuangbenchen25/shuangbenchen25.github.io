@@ -1,0 +1,15 @@
+---
+interface Props {
+  titleKey?: string;
+  descKey?: string;
+  title: string;
+  desc: string;
+}
+
+const { titleKey, descKey, title, desc } = Astro.props;
+---
+
+<header class="page-head">
+  <h1 class="page-title" data-i18n={titleKey}>{title}</h1>
+  <p data-i18n={descKey}>{desc}</p>
+</header>

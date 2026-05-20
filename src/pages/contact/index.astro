@@ -1,0 +1,31 @@
+---
+import PageHead from "../../components/PageHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { t } from "../../data/site";
+---
+
+<BaseLayout title="Contact | Shuangben Chen" description="Contact Shuangben Chen.">
+  <main class="site-shell">
+    <PageHead titleKey="contact.title" descKey="contact.desc" title={t("contact.title")} desc={t("contact.desc")} />
+    <section class="section">
+      <div class="section-label"><h2 data-i18n="contact.title">{t("contact.title")}</h2><p data-i18n="contact.desc">{t("contact.desc")}</p></div>
+      <div class="content-grid">
+        <article class="card">
+          <p class="eyebrow" data-i18n="contact.email.eyebrow">{t("contact.email.eyebrow")}</p>
+          <h3><a href="mailto:shuangbenchen25@stu.pku.edu.cn">shuangbenchen25@stu.pku.edu.cn</a></h3>
+          <p class="muted" data-i18n="contact.email.body">{t("contact.email.body")}</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow" data-i18n="contact.rednote.eyebrow">{t("contact.rednote.eyebrow")}</p>
+          <h3><a href="https://xhslink.com/m/1FgmbTFA7AB">@acid</a></h3>
+          <p class="muted" data-i18n="contact.rednote.body">{t("contact.rednote.body")}</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow" data-i18n="contact.weibo.eyebrow">{t("contact.weibo.eyebrow")}</p>
+          <h3><a href="https://weibo.com/u/5782415860">@DoubleDoubleBen</a></h3>
+          <p class="muted" data-i18n="contact.weibo.body">{t("contact.weibo.body")}</p>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

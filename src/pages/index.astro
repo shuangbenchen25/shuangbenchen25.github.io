@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { t } from "../data/site";
+---
+
+<BaseLayout>
+  <main class="site-shell">
+    <section class="hero" aria-labelledby="intro-title">
+      <div>
+        <h1 id="intro-title">Shuangben Chen</h1>
+        <p class="hero-lede" data-i18n="hero.lede">{t("hero.lede")}</p>
+        <p class="hero-note" data-i18n="hero.note">{t("hero.note")}</p>
+      </div>
+
+      <aside class="profile-card" aria-label="Profile summary">
+        <div class="portrait" aria-hidden="true">
+          <div class="portrait-wordmark">2Ben</div>
+        </div>
+        <div class="profile-meta">
+          <div class="meta-line"><span data-i18n="card.school.label">{t("card.school.label")}</span><strong data-i18n="card.school.value">{t("card.school.value")}</strong></div>
+          <div class="meta-line"><span data-i18n="card.college.label">{t("card.college.label")}</span><strong data-i18n="card.college.value">{t("card.college.value")}</strong></div>
+          <div class="meta-line"><span data-i18n="card.major.label">{t("card.major.label")}</span><strong data-i18n="card.major.value">{t("card.major.value")}</strong></div>
+          <div class="meta-line"><span data-i18n="card.email.label">{t("card.email.label")}</span><strong><a href="mailto:shuangbenchen25@stu.pku.edu.cn">shuangbenchen25@stu.pku.edu.cn</a></strong></div>
+          <div class="meta-line"><span data-i18n="card.research.label">{t("card.research.label")}</span><strong data-i18n="card.research.value">{t("card.research.value")}</strong></div>
+          <div class="meta-line"><span>CV</span><strong><a class="text-link" href="/assets/cv/shuangben-chen-cv.pdf" data-i18n="card.cv">{t("card.cv")}</a></strong></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+</BaseLayout>

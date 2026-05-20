@@ -1,0 +1,28 @@
+---
+import PageHead from "../../components/PageHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { tags, t } from "../../data/site";
+---
+
+<BaseLayout title="Others | Shuangben Chen" description="Activities and interests of Shuangben Chen.">
+  <main class="site-shell">
+    <PageHead titleKey="others.title" descKey="others.desc" title={t("others.title")} desc={t("others.desc")} />
+    <section class="section">
+      <div class="section-label"><h2 data-i18n="others.title">{t("others.title")}</h2><p data-i18n="others.desc">{t("others.desc")}</p></div>
+      <div class="split">
+        <article class="card">
+          <h3 data-i18n="others.activities.title">{t("others.activities.title")}</h3>
+          <ul>
+            <li data-i18n="others.activities.item1">{t("others.activities.item1")}</li>
+            <li data-i18n="others.activities.item2">{t("others.activities.item2")}</li>
+            <li><a class="term-link" href="/terms/super-brain/" data-i18n="terms.superbrain.title">{t("terms.superbrain.title")}</a> <span data-i18n="others.activities.item3">{t("others.activities.item3")}</span></li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3 data-i18n="others.interests.title">{t("others.interests.title")}</h3>
+          <div class="tags">{tags.interests.map((tag) => <span class="tag">{tag}</span>)}</div>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

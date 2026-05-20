@@ -1,0 +1,26 @@
+---
+import PageHead from "../../components/PageHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { t } from "../../data/site";
+---
+
+<BaseLayout title="Projects | Shuangben Chen" description="Projects and portfolio work of Shuangben Chen.">
+  <main class="site-shell">
+    <PageHead titleKey="projects.title" descKey="projects.desc" title={t("projects.title")} desc={t("projects.desc")} />
+    <section class="section">
+      <div class="section-label"><h2 data-i18n="projects.title">{t("projects.title")}</h2><p data-i18n="projects.desc">{t("projects.desc")}</p></div>
+      <div class="project-menu">
+        <a class="card" href="/projects/research/">
+          <p class="eyebrow" data-i18n="projects.research.type">{t("projects.research.type")}</p>
+          <h3 data-i18n="projects.research.nav">{t("projects.research.nav")}</h3>
+          <p class="muted" data-i18n="projects.research.body">{t("projects.research.body")}</p>
+        </a>
+        <a class="card" href="/projects/design/">
+          <p class="eyebrow" data-i18n="projects.design.type">{t("projects.design.type")}</p>
+          <h3 data-i18n="projects.design.nav">{t("projects.design.nav")}</h3>
+          <p class="muted" data-i18n="projects.design.body">{t("projects.design.body")}</p>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

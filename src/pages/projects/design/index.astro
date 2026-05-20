@@ -1,0 +1,18 @@
+---
+import PageHead from "../../../components/PageHead.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { t } from "../../../data/site";
+---
+
+<BaseLayout title="Design Portfolio | Shuangben Chen" description="Design portfolio by Shuangben Chen.">
+  <main class="site-shell">
+    <PageHead titleKey="projects.design.nav" descKey="projects.design.body" title={t("projects.design.nav")} desc={t("projects.design.body")} />
+    <section class="section">
+      <div class="section-label"><h2 data-i18n="projects.design.nav">{t("projects.design.nav")}</h2><p>Visual identity · Posters · Communication</p></div>
+      <div class="content-grid">
+        <article class="card"><p class="eyebrow" data-i18n="projects.design.type">{t("projects.design.type")}</p><h3 data-i18n="projects.design.title">{t("projects.design.title")}</h3><p class="muted" data-i18n="projects.design.body">{t("projects.design.body")}</p></article>
+        <article class="card"><p class="eyebrow" data-i18n="projects.media.type">{t("projects.media.type")}</p><h3 data-i18n="projects.media.title">{t("projects.media.title")}</h3><p class="muted" data-i18n="projects.media.body">{t("projects.media.body")}</p></article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
