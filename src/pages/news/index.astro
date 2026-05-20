@@ -25,10 +25,13 @@ function excerptFromMarkdown(raw: string, maxLength = 150) {
 
 const newsItems = Object.entries(modules)
   .map(([path, mod]) => {
-    const item = mod as { frontmatter: { title: string; date: string | Date; description?: string } };
+    const item = mod as {
+      frontmatter: { title: string; date: string | Date; description?: string };
+      Content: (_props: Record<string, never>) => unknown;
+    };
     const raw = String(rawModules[path] || "");
     const date = new Date(item.frontmatter.date);
-    return { ...item.frontmatter, date, excerpt: excerptFromMarkdown(raw) };
+    return { ...item.frontmatter, date, excerpt: excerptFromMarkdown(raw), Content: item.Content };
   })
   .sort((a, b) => b.date.getTime() - a.date.getTime());
 ---
@@ -40,12 +43,21 @@ const newsItems = Object.entries(modules)
       <div class="section-label"><h2 data-i18n="news.title">{t("news.title")}</h2><p data-i18n="news.desc">{t("news.desc")}</p></div>
       <div class="news-list">
         {newsItems.map((item) => (
-          <article class="news-item card">
-            <time class="date" datetime={item.date.toISOString()}>{item.date.toISOString().slice(0, 10)}</time>
-            <h3>{item.title}</h3>
-            {item.description && <p class="news-description">{item.description}</p>}
-            {item.excerpt && <p class="muted">{item.excerpt}</p>}
-          </article>
+          <details class="news-item card">
+            <summary>
+              <span class="news-node" aria-hidden="true"></span>
+              <span class="news-summary-main">
+                <time class="date" datetime={item.date.toISOString()}>{item.date.toISOString().slice(0, 10)}</time>
+                <strong>{item.title}</strong>
+                {item.description && <span class="news-description">{item.description}</span>}
+                {item.excerpt && <span class="news-excerpt">{item.excerpt}</span>}
+              </span>
+              <span class="news-read-more">Read more</span>
+            </summary>
+            <div class="news-full markdown-body">
+              <item.Content />
+            </div>
+          </details>
         ))}
       </div>
     </section>
