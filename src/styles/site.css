@@ -418,7 +418,10 @@ h1 {
 
 .home-overview {
     grid-template-columns: 1fr;
+    width: min(1540px, calc(100vw - 32px));
+    margin-left: 50%;
     padding-top: 68px;
+    transform: translateX(-50%);
 }
 
 .section-guide {
@@ -1369,6 +1372,12 @@ li + li {
 
     .section-label {
         position: static;
+    }
+
+    .home-overview {
+        width: 100%;
+        margin-left: 0;
+        transform: none;
     }
 
     .guide-row,
