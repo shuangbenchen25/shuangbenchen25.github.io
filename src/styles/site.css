@@ -8,7 +8,7 @@
     --panel-strong: #fffaf1;
     --forest: #164537;
     --olive: #697a39;
-    --brick: #9a3f2f;
+    --brick: #2f6f58;
     --gold: #b38728;
     --shadow: 0 24px 70px rgba(31, 38, 35, 0.13);
     --radius: 8px;
@@ -27,7 +27,7 @@ html[data-theme="dark"] {
     --panel-strong: #1f2a23;
     --forest: #91c7ad;
     --olive: #c7d48a;
-    --brick: #d88b7d;
+    --brick: #a8d8c0;
     --gold: #dec16a;
     --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
 }
