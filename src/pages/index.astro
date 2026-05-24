@@ -53,71 +53,60 @@ const overviewId = (href: string) => `overview-${href.replaceAll("/", "").replac
         </div>
       </aside>
     </section>
-    <section class="section home-overview" aria-label="Site sections">
-      <nav class="section-label guide-index-list" aria-label="Site sections">
-        {homeSections.map((section) => (
-          <a class="guide-index" href={`#${overviewId(section.href)}`}>
-            <span class="eyebrow" data-i18n={section.kickerKey}>{t(section.kickerKey)}</span>
-            <strong data-i18n={section.titleKey}>{t(section.titleKey)}</strong>
-          </a>
-        ))}
-      </nav>
-      <div class="section-guide">
-        {homeSections.map((section) => (
-          <article class="guide-row" id={overviewId(section.href)}>
-            <div class="guide-detail">
-              <div class="guide-heading">
-                <h3 data-i18n={section.titleKey}>{t(section.titleKey)}</h3>
-                <span data-i18n={section.descKey}>{t(section.descKey)}</span>
+    {homeSections.map((section) => (
+      <section class="section home-overview" id={overviewId(section.href)}>
+        <a class="section-label guide-index" href={section.href}>
+          <span class="eyebrow" data-i18n={section.kickerKey}>{t(section.kickerKey)}</span>
+          <strong data-i18n={section.titleKey}>{t(section.titleKey)}</strong>
+          <span data-i18n={section.descKey}>{t(section.descKey)}</span>
+        </a>
+        <article class="guide-detail">
+          <p data-i18n={section.summaryKey}>{t(section.summaryKey)}</p>
+          <div class="guide-metrics" aria-label={`${t(section.titleKey)} highlights`}>
+            {section.metrics.map((metric) => (
+              <div class="guide-metric">
+                <strong>{metric.value}</strong>
+                <span data-i18n={metric.labelKey}>{t(metric.labelKey)}</span>
               </div>
-              <p data-i18n={section.summaryKey}>{t(section.summaryKey)}</p>
-              <div class="guide-metrics" aria-label={`${t(section.titleKey)} highlights`}>
-                {section.metrics.map((metric) => (
-                  <div class="guide-metric">
-                    <strong>{metric.value}</strong>
-                    <span data-i18n={metric.labelKey}>{t(metric.labelKey)}</span>
-                  </div>
-                ))}
-              </div>
-              <div class="guide-signals">
-                {section.signals.map((signal) => (
-                  <div class="guide-signal" style={`--level: ${signal.level}%`}>
-                    <div>
-                      <span data-i18n={signal.labelKey}>{t(signal.labelKey)}</span>
-                      <strong>{signal.value}</strong>
-                    </div>
-                    <i aria-hidden="true"></i>
-                  </div>
-                ))}
-              </div>
-              <div class="guide-notes">
-                {section.detailKeys.map((key, index) => (
-                  <p class="guide-note">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <span data-i18n={key}>{t(key)}</span>
-                  </p>
-                ))}
-              </div>
-              {recentByHref.get(section.href)?.length ? (
-                <div class="guide-recents">
-                  {recentByHref.get(section.href)?.map((item) => (
-                    <a class="guide-recent" href={item.href}>
-                      <time datetime={item.date.toISOString()}>{item.dateLabel}</time>
-                      <strong>{item.title}</strong>
-                      <span>{item.description || item.excerpt}</span>
-                    </a>
-                  ))}
+            ))}
+          </div>
+          <div class="guide-signals">
+            {section.signals.map((signal) => (
+              <div class="guide-signal" style={`--level: ${signal.level}%`}>
+                <div>
+                  <span data-i18n={signal.labelKey}>{t(signal.labelKey)}</span>
+                  <strong>{signal.value}</strong>
                 </div>
-              ) : null}
-              <blockquote data-i18n={section.quoteKey}>{t(section.quoteKey)}</blockquote>
-              <ul class="guide-points">
-                {section.pointKeys.map((key) => <li data-i18n={key}>{t(key)}</li>)}
-              </ul>
-              <a class="overview-more" href={section.href} data-i18n="home.more">{t("home.more")}</a>
+                <i aria-hidden="true"></i>
+              </div>
+            ))}
+          </div>
+          <div class="guide-notes">
+            {section.detailKeys.map((key, index) => (
+              <p class="guide-note">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span data-i18n={key}>{t(key)}</span>
+              </p>
+            ))}
+          </div>
+          {recentByHref.get(section.href)?.length ? (
+            <div class="guide-recents">
+              {recentByHref.get(section.href)?.map((item) => (
+                <a class="guide-recent" href={item.href}>
+                  <time datetime={item.date.toISOString()}>{item.dateLabel}</time>
+                  <strong>{item.title}</strong>
+                  <span>{item.description || item.excerpt}</span>
+                </a>
+              ))}
             </div>
-          </article>
-        ))}
-      </div>
-    </section>
+          ) : null}
+          <blockquote data-i18n={section.quoteKey}>{t(section.quoteKey)}</blockquote>
+          <ul class="guide-points">
+            {section.pointKeys.map((key) => <li data-i18n={key}>{t(key)}</li>)}
+          </ul>
+          <a class="overview-more" href={section.href} data-i18n="home.more">{t("home.more")}</a>
+        </article>
+      </section>
+    ))}
   </main>
 </BaseLayout>

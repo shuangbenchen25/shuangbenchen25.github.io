@@ -417,47 +417,13 @@ h1 {
 }
 
 .home-overview {
-    padding-top: 68px;
-}
-
-.section-guide {
-    display: grid;
-    border-top: 0;
-}
-
-.guide-row {
-    border-bottom: 1px solid var(--line);
-    padding: 40px 0;
     scroll-margin-top: 104px;
-}
-
-.guide-row:first-child {
-    padding-top: 0;
 }
 
 .guide-index {
     display: grid;
     align-content: start;
     gap: 10px;
-}
-
-.guide-index-list {
-    display: grid;
-    align-content: start;
-    gap: 14px;
-}
-
-.guide-index-list .guide-index {
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 14px;
-}
-
-.guide-index-list .guide-index:last-child {
-    border-bottom: 0;
-}
-
-.guide-index-list .guide-index strong {
-    font-size: clamp(1.35rem, 2vw, 1.85rem);
 }
 
 .guide-index strong {
@@ -481,30 +447,6 @@ h1 {
     gap: 18px;
     align-content: start;
     justify-self: stretch;
-}
-
-.guide-heading {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 18px;
-}
-
-.guide-heading h3 {
-    margin: 0;
-    color: var(--ink);
-    font-size: clamp(1.35rem, 2.2vw, 1.9rem);
-    font-weight: 600;
-    line-height: 1.12;
-}
-
-.guide-heading span {
-    max-width: 360px;
-    color: var(--muted);
-    font-family: var(--font-ui);
-    font-size: 0.86rem;
-    line-height: 1.45;
-    text-align: right;
 }
 
 .guide-detail p {
@@ -1442,20 +1384,10 @@ li + li {
         position: static;
     }
 
-    .guide-row,
     .guide-detail,
     .guide-notes,
     .guide-points {
         grid-template-columns: 1fr;
-    }
-
-    .guide-heading {
-        display: grid;
-    }
-
-    .guide-heading span {
-        max-width: none;
-        text-align: left;
     }
 
     .guide-recents {
