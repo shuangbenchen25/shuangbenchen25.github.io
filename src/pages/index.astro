@@ -81,6 +81,14 @@ const recentByHref = new Map([
                   </div>
                 ))}
               </div>
+              <div class="guide-notes">
+                {section.detailKeys.map((key, index) => (
+                  <p class="guide-note">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span data-i18n={key}>{t(key)}</span>
+                  </p>
+                ))}
+              </div>
               {recentByHref.get(section.href)?.length ? (
                 <div class="guide-recents">
                   {recentByHref.get(section.href)?.map((item) => (

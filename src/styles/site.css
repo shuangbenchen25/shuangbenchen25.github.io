@@ -418,10 +418,7 @@ h1 {
 
 .home-overview {
     grid-template-columns: 1fr;
-    width: min(1540px, calc(100vw - 32px));
-    margin-left: 50%;
     padding-top: 68px;
-    transform: translateX(-50%);
 }
 
 .section-guide {
@@ -516,6 +513,33 @@ h1 {
     border-radius: var(--radius);
     padding: 16px 18px;
     background: color-mix(in srgb, var(--panel-strong) 44%, transparent);
+}
+
+.guide-notes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.guide-note {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    min-height: 132px;
+    margin: 0;
+    border-top: 1px solid color-mix(in srgb, var(--forest) 28%, transparent);
+    padding-top: 12px;
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 0.83rem;
+    line-height: 1.55;
+}
+
+.guide-note span:first-child {
+    color: var(--forest);
+    font-size: 0.74rem;
+    font-weight: 760;
+    letter-spacing: 0.08em;
 }
 
 .guide-recents {
@@ -1374,14 +1398,9 @@ li + li {
         position: static;
     }
 
-    .home-overview {
-        width: 100%;
-        margin-left: 0;
-        transform: none;
-    }
-
     .guide-row,
     .guide-detail,
+    .guide-notes,
     .guide-points {
         grid-template-columns: 1fr;
     }
@@ -1412,6 +1431,7 @@ li + li {
     .guide-row,
     .guide-detail,
     .guide-metrics,
+    .guide-notes,
     .guide-recents,
     .guide-points {
         grid-template-columns: 1fr;

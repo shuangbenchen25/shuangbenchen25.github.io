@@ -36,6 +36,9 @@ export const translations = {
     "home.academics.signal.foundation": "Academic foundation",
     "home.academics.signal.language": "Language training",
     "home.academics.quote": "A cross-disciplinary base for connecting computing, cognition, and design.",
+    "home.academics.detail1": "Education: Yuanpei College leaves room for AI coursework and cross-disciplinary exploration.",
+    "home.academics.detail2": "Record: scores, awards, language tests, and selected coursework are collected together.",
+    "home.academics.detail3": "Toolkit: computation, math foundations, Python/C++, and visual communication practice.",
     "home.projects.kicker": "Research & design",
     "home.projects.summary": "RL post-training infrastructure for robotic manipulation, Yuanpei Design Lab work, and public-facing media practice.",
     "home.projects.point1": "Research: robotic manipulation and RL infrastructure",
@@ -45,6 +48,9 @@ export const translations = {
     "home.projects.signal.research": "Robotics / RL",
     "home.projects.signal.design": "Visual communication",
     "home.projects.quote": "A working table for research systems, design artifacts, and public-facing practice.",
+    "home.projects.detail1": "Research: RL post-training infrastructure for large-scale robotic manipulation datasets.",
+    "home.projects.detail2": "Design: posters, identity systems, visual assets, and event communication.",
+    "home.projects.detail3": "Media: public-facing writing and platform practice across Weibo and RedNote.",
     "home.blog.kicker": "Notes",
     "home.blog.summary": "Research notes, film writing, class notes, and longer reflections maintained as Markdown posts.",
     "home.blog.point1": "Markdown-based essays and class notes",
@@ -54,6 +60,9 @@ export const translations = {
     "home.blog.signal.research": "Research notes",
     "home.blog.signal.essay": "Long-form reflection",
     "home.blog.quote": "A place for unfinished questions to become readable notes.",
+    "home.blog.detail1": "Maintained as Markdown so essays can move from local notes to the site with minimal friction.",
+    "home.blog.detail2": "Includes film notes, research reading, class material, and longer personal reflections.",
+    "home.blog.detail3": "Recent posts are pulled automatically from the blog folder and linked from this overview.",
     "home.news.kicker": "Recent updates",
     "home.news.summary": "Short updates about new findings, site changes, activities, and things worth recording.",
     "home.news.point1": "Timeline of recent activities and findings",
@@ -63,6 +72,9 @@ export const translations = {
     "home.news.signal.update": "Recent activity",
     "home.news.signal.archive": "Later expansion",
     "home.news.quote": "Small updates are kept chronological, expandable, and easy to maintain.",
+    "home.news.detail1": "Timeline entries are maintained with Markdown frontmatter and sorted by date.",
+    "home.news.detail2": "Each item keeps a short description first, with expandable full text on the News page.",
+    "home.news.detail3": "The homepage always indexes the latest updates without manual copy-pasting.",
     "home.others.kicker": "Beyond coursework",
     "home.others.summary": "Movie clubs, Super Brain, interests, and other activities outside the core academic track.",
     "home.others.point1": "Activities, clubs, and competition notes",
@@ -72,6 +84,9 @@ export const translations = {
     "home.others.signal.club": "Clubs and media",
     "home.others.signal.interest": "Personal archive",
     "home.others.quote": "The non-coursework archive keeps the site from becoming only a CV.",
+    "home.others.detail1": "Activities: movie clubs, external relations work, competitions, and public events.",
+    "home.others.detail2": "Context pages: terms such as Super Brain can expand into standalone explanations.",
+    "home.others.detail3": "Interests: films, puzzles, music games, billiards, and science fiction form a personal archive.",
     "academics.title": "Academics",
     "academics.desc": "Education, coursework, awards, and core skills.",
     "academics.pku.title": "Peking University, Yuanpei College",
@@ -160,6 +175,9 @@ export const translations = {
     "home.academics.signal.foundation": "学术基础",
     "home.academics.signal.language": "语言训练",
     "home.academics.quote": "用跨学科基础连接计算、认知与设计。",
+    "home.academics.detail1": "教育：元培学院提供人工智能课程和跨学科探索的空间。",
+    "home.academics.detail2": "记录：成绩、奖项、语言考试和核心课程集中整理。",
+    "home.academics.detail3": "工具：计算、数学基础、Python/C++ 与视觉传播实践。",
     "home.projects.kicker": "科研与设计",
     "home.projects.summary": "机器人操作方向 RL 后训练基础设施、元培设计实验室实践，以及公共表达相关内容创作。",
     "home.projects.point1": "科研：机器人操作与 RL 基础设施",
@@ -169,6 +187,9 @@ export const translations = {
     "home.projects.signal.research": "机器人 / RL",
     "home.projects.signal.design": "视觉传播",
     "home.projects.quote": "这里像一张工作台，放科研系统、设计作品和公共表达实践。",
+    "home.projects.detail1": "科研：面向大规模机器人操作数据集的 RL 后训练基础设施。",
+    "home.projects.detail2": "设计：海报、视觉识别、活动物料和传播系统。",
+    "home.projects.detail3": "媒体：围绕微博、小红书等平台的公共表达和内容实践。",
     "home.blog.kicker": "笔记",
     "home.blog.summary": "以 Markdown 维护科研笔记、电影写作、课程笔记和较长的个人思考。",
     "home.blog.point1": "Markdown 维护的长文与课程笔记",
@@ -178,6 +199,9 @@ export const translations = {
     "home.blog.signal.research": "科研笔记",
     "home.blog.signal.essay": "长文思考",
     "home.blog.quote": "把尚未完成的问题，慢慢整理成可以阅读的笔记。",
+    "home.blog.detail1": "以 Markdown 维护，本地笔记可以低摩擦地发布到网站。",
+    "home.blog.detail2": "包含电影笔记、科研阅读、课程材料和较长的个人思考。",
+    "home.blog.detail3": "最近文章会从 blog 文件夹自动提取，并在首页建立跳转。",
     "home.news.kicker": "近期更新",
     "home.news.summary": "记录最近的新见闻、网站更新、活动和其他值得保留的小动态。",
     "home.news.point1": "近期活动与新见闻时间轴",
@@ -187,6 +211,9 @@ export const translations = {
     "home.news.signal.update": "近期活动",
     "home.news.signal.archive": "后续扩展",
     "home.news.quote": "小动态按时间保留，可展开阅读，也便于持续维护。",
+    "home.news.detail1": "时间线条目通过 Markdown frontmatter 维护，并按日期排序。",
+    "home.news.detail2": "每条动态先展示短描述，完整内容在 News 页面展开阅读。",
+    "home.news.detail3": "首页会自动索引最新动态，不需要手动复制更新。",
     "home.others.kicker": "课程之外",
     "home.others.summary": "电影社、最强大脑、兴趣与核心学术路径之外的活动。",
     "home.others.point1": "活动、社团与竞赛记录",
@@ -196,6 +223,9 @@ export const translations = {
     "home.others.signal.club": "社团与媒体",
     "home.others.signal.interest": "个人档案",
     "home.others.quote": "课程之外的部分，让这个网站不只是简历。",
+    "home.others.detail1": "活动：电影社、外联工作、竞赛经历和公共活动。",
+    "home.others.detail2": "补充页：如“最强大脑”等名词可以展开成独立说明。",
+    "home.others.detail3": "兴趣：电影、谜题、音游、台球和科幻构成个人档案。",
     "academics.title": "学术",
     "academics.desc": "教育背景、课程、奖项与核心技能。",
     "academics.pku.title": "北京大学，元培学院",
@@ -340,6 +370,7 @@ export const homeSections = [
     kickerKey: "home.academics.kicker",
     summaryKey: "home.academics.summary",
     pointKeys: ["home.academics.point1", "home.academics.point2"],
+    detailKeys: ["home.academics.detail1", "home.academics.detail2", "home.academics.detail3"],
     metrics: [
       { value: "696", labelKey: "home.academics.metric.score" },
       { value: "93", labelKey: "home.academics.metric.course" }
@@ -357,6 +388,7 @@ export const homeSections = [
     kickerKey: "home.projects.kicker",
     summaryKey: "home.projects.summary",
     pointKeys: ["home.projects.point1", "home.projects.point2"],
+    detailKeys: ["home.projects.detail1", "home.projects.detail2", "home.projects.detail3"],
     metrics: [
       { value: "2", labelKey: "home.projects.metric.track" },
       { value: "RL", labelKey: "home.projects.metric.scope" }
@@ -374,6 +406,7 @@ export const homeSections = [
     kickerKey: "home.blog.kicker",
     summaryKey: "home.blog.summary",
     pointKeys: ["home.blog.point1", "home.blog.point2"],
+    detailKeys: ["home.blog.detail1", "home.blog.detail2", "home.blog.detail3"],
     metrics: [
       { value: "MD", labelKey: "home.blog.metric.format" },
       { value: "Git", labelKey: "home.blog.metric.workflow" }
@@ -391,6 +424,7 @@ export const homeSections = [
     kickerKey: "home.news.kicker",
     summaryKey: "home.news.summary",
     pointKeys: ["home.news.point1", "home.news.point2"],
+    detailKeys: ["home.news.detail1", "home.news.detail2", "home.news.detail3"],
     metrics: [
       { value: "TL", labelKey: "home.news.metric.view" },
       { value: "MD", labelKey: "home.news.metric.source" }
@@ -408,6 +442,7 @@ export const homeSections = [
     kickerKey: "home.others.kicker",
     summaryKey: "home.others.summary",
     pointKeys: ["home.others.point1", "home.others.point2"],
+    detailKeys: ["home.others.detail1", "home.others.detail2", "home.others.detail3"],
     metrics: [
       { value: "3+", labelKey: "home.others.metric.activities" },
       { value: "∞", labelKey: "home.others.metric.context" }
@@ -425,6 +460,7 @@ export const homeSections = [
   kickerKey: TranslationKey;
   summaryKey: TranslationKey;
   pointKeys: TranslationKey[];
+  detailKeys: TranslationKey[];
   metrics: Array<{ value: string; labelKey: TranslationKey }>;
   signals: Array<{ labelKey: TranslationKey; value: string; level: number }>;
   quoteKey: TranslationKey;
