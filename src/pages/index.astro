@@ -26,11 +26,7 @@ import { homeSections, t } from "../data/site";
         </div>
       </aside>
     </section>
-    <section class="section home-overview" aria-labelledby="home-overview-title">
-      <div class="section-label">
-        <h2 id="home-overview-title" data-i18n="home.overview.title">{t("home.overview.title")}</h2>
-        <p data-i18n="home.overview.desc">{t("home.overview.desc")}</p>
-      </div>
+    <section class="section home-overview" aria-label="Site sections">
       <div class="section-guide">
         {homeSections.map((section) => (
           <article class="guide-row">
