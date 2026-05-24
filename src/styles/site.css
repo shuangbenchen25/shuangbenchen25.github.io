@@ -74,7 +74,7 @@ input {
 }
 
 .site-shell {
-    width: min(1420px, calc(100% - 48px));
+    width: min(1180px, calc(100% - 32px));
     margin: 0 auto;
 }
 
@@ -428,8 +428,8 @@ h1 {
 
 .guide-row {
     display: grid;
-    grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
-    gap: clamp(30px, 5vw, 72px);
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 44px;
     border-bottom: 1px solid var(--line);
     padding: 40px 0;
 }
