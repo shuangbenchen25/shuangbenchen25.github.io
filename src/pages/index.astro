@@ -26,6 +26,8 @@ const recentByHref = new Map([
     }).slice(0, 3)
   ]
 ]);
+
+const overviewId = (href: string) => `overview-${href.replaceAll("/", "").replaceAll("-", "") || "about"}`;
 ---
 
 <BaseLayout>
@@ -52,15 +54,22 @@ const recentByHref = new Map([
       </aside>
     </section>
     <section class="section home-overview" aria-label="Site sections">
+      <nav class="section-label guide-index-list" aria-label="Site sections">
+        {homeSections.map((section) => (
+          <a class="guide-index" href={`#${overviewId(section.href)}`}>
+            <span class="eyebrow" data-i18n={section.kickerKey}>{t(section.kickerKey)}</span>
+            <strong data-i18n={section.titleKey}>{t(section.titleKey)}</strong>
+          </a>
+        ))}
+      </nav>
       <div class="section-guide">
         {homeSections.map((section) => (
-          <article class="guide-row">
-            <a class="guide-index" href={section.href}>
-              <span class="eyebrow" data-i18n={section.kickerKey}>{t(section.kickerKey)}</span>
-              <strong data-i18n={section.titleKey}>{t(section.titleKey)}</strong>
-              <span data-i18n={section.descKey}>{t(section.descKey)}</span>
-            </a>
+          <article class="guide-row" id={overviewId(section.href)}>
             <div class="guide-detail">
+              <div class="guide-heading">
+                <h3 data-i18n={section.titleKey}>{t(section.titleKey)}</h3>
+                <span data-i18n={section.descKey}>{t(section.descKey)}</span>
+              </div>
               <p data-i18n={section.summaryKey}>{t(section.summaryKey)}</p>
               <div class="guide-metrics" aria-label={`${t(section.titleKey)} highlights`}>
                 {section.metrics.map((metric) => (
