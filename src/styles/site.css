@@ -417,6 +417,7 @@ h1 {
 }
 
 .home-overview {
+    grid-template-columns: 1fr;
     padding-top: 68px;
 }
 
@@ -427,10 +428,10 @@ h1 {
 
 .guide-row {
     display: grid;
-    grid-template-columns: minmax(220px, 0.38fr) minmax(0, 1fr);
-    gap: clamp(22px, 5vw, 64px);
+    grid-template-columns: minmax(260px, 0.34fr) minmax(0, 1fr);
+    gap: clamp(28px, 6vw, 88px);
     border-bottom: 1px solid var(--line);
-    padding: 28px 0;
+    padding: 34px 0;
 }
 
 .guide-index {
@@ -442,7 +443,7 @@ h1 {
 .guide-index strong {
     color: var(--ink);
     font-family: var(--font-display);
-    font-size: clamp(1.65rem, 3.5vw, 2.65rem);
+    font-size: clamp(1.9rem, 3.4vw, 3.1rem);
     font-weight: 520;
     line-height: 0.98;
 }
@@ -456,11 +457,13 @@ h1 {
 
 .guide-detail {
     display: grid;
-    gap: 16px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+    gap: 18px 28px;
     align-content: start;
 }
 
 .guide-detail p {
+    grid-column: 1 / -1;
     max-width: 760px;
     margin: 0;
     color: color-mix(in srgb, var(--ink) 84%, var(--muted));
@@ -468,16 +471,105 @@ h1 {
     line-height: 1.7;
 }
 
-.guide-detail ul {
+.guide-metrics {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.guide-metric {
+    min-height: 112px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    background:
+        linear-gradient(135deg, color-mix(in srgb, var(--forest) 12%, transparent), transparent 54%),
+        color-mix(in srgb, var(--panel-strong) 76%, transparent);
+}
+
+.guide-metric strong {
+    display: block;
+    color: var(--forest);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.2vw, 3.35rem);
+    font-weight: 560;
+    line-height: 0.92;
+}
+
+.guide-metric span {
+    display: block;
+    margin-top: 12px;
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    line-height: 1.35;
+}
+
+.guide-signals {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    border-left: 1px solid color-mix(in srgb, var(--forest) 28%, transparent);
+    padding-left: 18px;
+}
+
+.guide-signal {
+    display: grid;
+    gap: 8px;
+}
+
+.guide-signal div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+}
+
+.guide-signal strong {
+    color: color-mix(in srgb, var(--ink) 78%, var(--forest));
+    font-weight: 680;
+}
+
+.guide-signal i {
+    display: block;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--forest) 10%, var(--line));
+}
+
+.guide-signal i::before {
+    display: block;
+    width: var(--level);
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--forest), color-mix(in srgb, var(--forest) 52%, var(--gold)));
+    content: "";
+}
+
+.guide-detail blockquote {
+    margin: 0;
+    border-left: 2px solid var(--forest);
+    padding: 4px 0 4px 16px;
+    color: color-mix(in srgb, var(--ink) 78%, var(--muted));
+    font-family: var(--font-display);
+    font-size: clamp(1.02rem, 1.8vw, 1.28rem);
+    line-height: 1.45;
+}
+
+.guide-points {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column: 1 / -1;
     gap: 10px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.guide-detail li {
+.guide-points li {
     margin: 0;
     border-left: 2px solid color-mix(in srgb, var(--forest) 42%, transparent);
     padding-left: 12px;
@@ -488,6 +580,7 @@ h1 {
 }
 
 .overview-more {
+    grid-column: 1 / -1;
     align-self: end;
     width: fit-content;
     border-bottom: 1px solid currentColor;
@@ -1232,7 +1325,8 @@ li + li {
     }
 
     .guide-row,
-    .guide-detail ul {
+    .guide-detail,
+    .guide-points {
         grid-template-columns: 1fr;
     }
 }
@@ -1256,8 +1350,15 @@ li + li {
     .split,
     .project-menu,
     .guide-row,
-    .guide-detail ul {
+    .guide-detail,
+    .guide-metrics,
+    .guide-points {
         grid-template-columns: 1fr;
+    }
+
+    .guide-signals {
+        border-left: 0;
+        padding-left: 0;
     }
 
     .timeline-item {

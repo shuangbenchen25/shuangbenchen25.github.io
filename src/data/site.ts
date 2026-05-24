@@ -31,22 +31,47 @@ export const translations = {
     "home.academics.summary": "Peking University, Yuanpei College; AI major; coursework, scholarships, language scores, and technical skills.",
     "home.academics.point1": "PKU Yuanpei College, Artificial Intelligence",
     "home.academics.point2": "Coursework, awards, IELTS, CET-4, and technical stack",
+    "home.academics.metric.score": "Gaokao score",
+    "home.academics.metric.course": "Intro to Computation",
+    "home.academics.signal.foundation": "Academic foundation",
+    "home.academics.signal.language": "Language training",
+    "home.academics.quote": "A cross-disciplinary base for connecting computing, cognition, and design.",
     "home.projects.kicker": "Research & design",
     "home.projects.summary": "RL post-training infrastructure for robotic manipulation, Yuanpei Design Lab work, and public-facing media practice.",
     "home.projects.point1": "Research: robotic manipulation and RL infrastructure",
     "home.projects.point2": "Design: posters, visual systems, and media practice",
+    "home.projects.metric.track": "Portfolio tracks",
+    "home.projects.metric.scope": "Research focus",
+    "home.projects.signal.research": "Robotics / RL",
+    "home.projects.signal.design": "Visual communication",
+    "home.projects.quote": "A working table for research systems, design artifacts, and public-facing practice.",
     "home.blog.kicker": "Notes",
     "home.blog.summary": "Research notes, film writing, class notes, and longer reflections maintained as Markdown posts.",
     "home.blog.point1": "Markdown-based essays and class notes",
     "home.blog.point2": "Film, research, and personal reflections",
+    "home.blog.metric.format": "Writing format",
+    "home.blog.metric.workflow": "Publishing flow",
+    "home.blog.signal.research": "Research notes",
+    "home.blog.signal.essay": "Long-form reflection",
+    "home.blog.quote": "A place for unfinished questions to become readable notes.",
     "home.news.kicker": "Recent updates",
     "home.news.summary": "Short updates about new findings, site changes, activities, and things worth recording.",
     "home.news.point1": "Timeline of recent activities and findings",
     "home.news.point2": "Expandable Markdown updates",
+    "home.news.metric.view": "Display mode",
+    "home.news.metric.source": "Source",
+    "home.news.signal.update": "Recent activity",
+    "home.news.signal.archive": "Later expansion",
+    "home.news.quote": "Small updates are kept chronological, expandable, and easy to maintain.",
     "home.others.kicker": "Beyond coursework",
     "home.others.summary": "Movie clubs, Super Brain, interests, and other activities outside the core academic track.",
     "home.others.point1": "Activities, clubs, and competition notes",
     "home.others.point2": "Personal interests and context pages",
+    "home.others.metric.activities": "Activity streams",
+    "home.others.metric.context": "Context pages",
+    "home.others.signal.club": "Clubs and media",
+    "home.others.signal.interest": "Personal archive",
+    "home.others.quote": "The non-coursework archive keeps the site from becoming only a CV.",
     "academics.title": "Academics",
     "academics.desc": "Education, coursework, awards, and core skills.",
     "academics.pku.title": "Peking University, Yuanpei College",
@@ -130,22 +155,47 @@ export const translations = {
     "home.academics.summary": "北京大学元培学院，人工智能方向；整理课程、奖学金、语言成绩与技术技能。",
     "home.academics.point1": "北京大学元培学院，人工智能方向",
     "home.academics.point2": "课程、奖项、IELTS、CET-4 与技术栈",
+    "home.academics.metric.score": "高考成绩",
+    "home.academics.metric.course": "计算概论",
+    "home.academics.signal.foundation": "学术基础",
+    "home.academics.signal.language": "语言训练",
+    "home.academics.quote": "用跨学科基础连接计算、认知与设计。",
     "home.projects.kicker": "科研与设计",
     "home.projects.summary": "机器人操作方向 RL 后训练基础设施、元培设计实验室实践，以及公共表达相关内容创作。",
     "home.projects.point1": "科研：机器人操作与 RL 基础设施",
     "home.projects.point2": "设计：海报、视觉系统与媒体实践",
+    "home.projects.metric.track": "作品方向",
+    "home.projects.metric.scope": "研究焦点",
+    "home.projects.signal.research": "机器人 / RL",
+    "home.projects.signal.design": "视觉传播",
+    "home.projects.quote": "这里像一张工作台，放科研系统、设计作品和公共表达实践。",
     "home.blog.kicker": "笔记",
     "home.blog.summary": "以 Markdown 维护科研笔记、电影写作、课程笔记和较长的个人思考。",
     "home.blog.point1": "Markdown 维护的长文与课程笔记",
     "home.blog.point2": "电影、科研与个人思考",
+    "home.blog.metric.format": "写作格式",
+    "home.blog.metric.workflow": "发布流程",
+    "home.blog.signal.research": "科研笔记",
+    "home.blog.signal.essay": "长文思考",
+    "home.blog.quote": "把尚未完成的问题，慢慢整理成可以阅读的笔记。",
     "home.news.kicker": "近期更新",
     "home.news.summary": "记录最近的新见闻、网站更新、活动和其他值得保留的小动态。",
     "home.news.point1": "近期活动与新见闻时间轴",
     "home.news.point2": "可展开阅读的 Markdown 动态",
+    "home.news.metric.view": "展示方式",
+    "home.news.metric.source": "内容来源",
+    "home.news.signal.update": "近期活动",
+    "home.news.signal.archive": "后续扩展",
+    "home.news.quote": "小动态按时间保留，可展开阅读，也便于持续维护。",
     "home.others.kicker": "课程之外",
     "home.others.summary": "电影社、最强大脑、兴趣与核心学术路径之外的活动。",
     "home.others.point1": "活动、社团与竞赛记录",
     "home.others.point2": "个人兴趣和补充说明页",
+    "home.others.metric.activities": "活动线索",
+    "home.others.metric.context": "补充页面",
+    "home.others.signal.club": "社团与媒体",
+    "home.others.signal.interest": "个人档案",
+    "home.others.quote": "课程之外的部分，让这个网站不只是简历。",
     "academics.title": "学术",
     "academics.desc": "教育背景、课程、奖项与核心技能。",
     "academics.pku.title": "北京大学，元培学院",
@@ -289,7 +339,16 @@ export const homeSections = [
     descKey: "academics.desc",
     kickerKey: "home.academics.kicker",
     summaryKey: "home.academics.summary",
-    pointKeys: ["home.academics.point1", "home.academics.point2"]
+    pointKeys: ["home.academics.point1", "home.academics.point2"],
+    metrics: [
+      { value: "696", labelKey: "home.academics.metric.score" },
+      { value: "93", labelKey: "home.academics.metric.course" }
+    ],
+    signals: [
+      { labelKey: "home.academics.signal.foundation", value: "86/100", level: 86 },
+      { labelKey: "home.academics.signal.language", value: "IELTS 7.5", level: 75 }
+    ],
+    quoteKey: "home.academics.quote"
   },
   {
     href: "/projects/",
@@ -297,7 +356,16 @@ export const homeSections = [
     descKey: "projects.desc",
     kickerKey: "home.projects.kicker",
     summaryKey: "home.projects.summary",
-    pointKeys: ["home.projects.point1", "home.projects.point2"]
+    pointKeys: ["home.projects.point1", "home.projects.point2"],
+    metrics: [
+      { value: "2", labelKey: "home.projects.metric.track" },
+      { value: "RL", labelKey: "home.projects.metric.scope" }
+    ],
+    signals: [
+      { labelKey: "home.projects.signal.research", value: "active", level: 82 },
+      { labelKey: "home.projects.signal.design", value: "portfolio", level: 68 }
+    ],
+    quoteKey: "home.projects.quote"
   },
   {
     href: "/blog/",
@@ -305,7 +373,16 @@ export const homeSections = [
     descKey: "blog.desc",
     kickerKey: "home.blog.kicker",
     summaryKey: "home.blog.summary",
-    pointKeys: ["home.blog.point1", "home.blog.point2"]
+    pointKeys: ["home.blog.point1", "home.blog.point2"],
+    metrics: [
+      { value: "MD", labelKey: "home.blog.metric.format" },
+      { value: "Git", labelKey: "home.blog.metric.workflow" }
+    ],
+    signals: [
+      { labelKey: "home.blog.signal.research", value: "notes", level: 74 },
+      { labelKey: "home.blog.signal.essay", value: "essays", level: 62 }
+    ],
+    quoteKey: "home.blog.quote"
   },
   {
     href: "/news/",
@@ -313,7 +390,16 @@ export const homeSections = [
     descKey: "news.desc",
     kickerKey: "home.news.kicker",
     summaryKey: "home.news.summary",
-    pointKeys: ["home.news.point1", "home.news.point2"]
+    pointKeys: ["home.news.point1", "home.news.point2"],
+    metrics: [
+      { value: "TL", labelKey: "home.news.metric.view" },
+      { value: "MD", labelKey: "home.news.metric.source" }
+    ],
+    signals: [
+      { labelKey: "home.news.signal.update", value: "now", level: 70 },
+      { labelKey: "home.news.signal.archive", value: "open", level: 52 }
+    ],
+    quoteKey: "home.news.quote"
   },
   {
     href: "/others/",
@@ -321,7 +407,16 @@ export const homeSections = [
     descKey: "others.desc",
     kickerKey: "home.others.kicker",
     summaryKey: "home.others.summary",
-    pointKeys: ["home.others.point1", "home.others.point2"]
+    pointKeys: ["home.others.point1", "home.others.point2"],
+    metrics: [
+      { value: "3+", labelKey: "home.others.metric.activities" },
+      { value: "∞", labelKey: "home.others.metric.context" }
+    ],
+    signals: [
+      { labelKey: "home.others.signal.club", value: "media", level: 66 },
+      { labelKey: "home.others.signal.interest", value: "archive", level: 58 }
+    ],
+    quoteKey: "home.others.quote"
   }
 ] satisfies Array<{
   href: string;
@@ -330,6 +425,9 @@ export const homeSections = [
   kickerKey: TranslationKey;
   summaryKey: TranslationKey;
   pointKeys: TranslationKey[];
+  metrics: Array<{ value: string; labelKey: TranslationKey }>;
+  signals: Array<{ labelKey: TranslationKey; value: string; level: number }>;
+  quoteKey: TranslationKey;
 }>;
 
 export const contactLinks = [

@@ -37,7 +37,27 @@ import { homeSections, t } from "../data/site";
             </a>
             <div class="guide-detail">
               <p data-i18n={section.summaryKey}>{t(section.summaryKey)}</p>
-              <ul>
+              <div class="guide-metrics" aria-label={`${t(section.titleKey)} highlights`}>
+                {section.metrics.map((metric) => (
+                  <div class="guide-metric">
+                    <strong>{metric.value}</strong>
+                    <span data-i18n={metric.labelKey}>{t(metric.labelKey)}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="guide-signals">
+                {section.signals.map((signal) => (
+                  <div class="guide-signal" style={`--level: ${signal.level}%`}>
+                    <div>
+                      <span data-i18n={signal.labelKey}>{t(signal.labelKey)}</span>
+                      <strong>{signal.value}</strong>
+                    </div>
+                    <i aria-hidden="true"></i>
+                  </div>
+                ))}
+              </div>
+              <blockquote data-i18n={section.quoteKey}>{t(section.quoteKey)}</blockquote>
+              <ul class="guide-points">
                 {section.pointKeys.map((key) => <li data-i18n={key}>{t(key)}</li>)}
               </ul>
               <a class="overview-more" href={section.href} data-i18n="home.more">{t("home.more")}</a>
