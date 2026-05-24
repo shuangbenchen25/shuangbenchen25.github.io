@@ -1,6 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { homeSections, t } from "../data/site";
+import { collectContentPreviews } from "../utils/content";
+
+const blogModules = import.meta.glob("../content/blog/**/*.md", { eager: true });
+const blogRawModules = import.meta.glob("../content/blog/**/*.md", { eager: true, query: "?raw", import: "default" });
+const newsModules = import.meta.glob("../content/news/**/*.md", { eager: true });
+const newsRawModules = import.meta.glob("../content/news/**/*.md", { eager: true, query: "?raw", import: "default" });
+
+const recentByHref = new Map([
+  [
+    "/blog/",
+    collectContentPreviews(blogModules, blogRawModules, {
+      basePath: "../content/blog/",
+      hrefForSlug: (slug) => `/blog/posts/${slug}/`,
+      excerptLength: 110
+    }).slice(0, 3)
+  ],
+  [
+    "/news/",
+    collectContentPreviews(newsModules, newsRawModules, {
+      basePath: "../content/news/",
+      hrefForSlug: (slug) => `/news/#${slug}`,
+      excerptLength: 110
+    }).slice(0, 3)
+  ]
+]);
 ---
 
 <BaseLayout>
@@ -56,6 +81,17 @@ import { homeSections, t } from "../data/site";
                   </div>
                 ))}
               </div>
+              {recentByHref.get(section.href)?.length ? (
+                <div class="guide-recents">
+                  {recentByHref.get(section.href)?.map((item) => (
+                    <a class="guide-recent" href={item.href}>
+                      <time datetime={item.date.toISOString()}>{item.dateLabel}</time>
+                      <strong>{item.title}</strong>
+                      <span>{item.description || item.excerpt}</span>
+                    </a>
+                  ))}
+                </div>
+              ) : null}
               <blockquote data-i18n={section.quoteKey}>{t(section.quoteKey)}</blockquote>
               <ul class="guide-points">
                 {section.pointKeys.map((key) => <li data-i18n={key}>{t(key)}</li>)}

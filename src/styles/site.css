@@ -74,7 +74,7 @@ input {
 }
 
 .site-shell {
-    width: min(1180px, calc(100% - 32px));
+    width: min(1420px, calc(100% - 48px));
     margin: 0 auto;
 }
 
@@ -428,7 +428,7 @@ h1 {
 
 .guide-row {
     display: grid;
-    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
     gap: clamp(30px, 5vw, 72px);
     border-bottom: 1px solid var(--line);
     padding: 40px 0;
@@ -457,7 +457,7 @@ h1 {
 
 .guide-detail {
     display: grid;
-    max-width: 880px;
+    max-width: none;
     gap: 18px;
     align-content: start;
     justify-self: stretch;
@@ -475,7 +475,7 @@ h1 {
 
 .guide-metrics {
     display: grid;
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
     gap: 12px;
 }
 
@@ -516,6 +516,53 @@ h1 {
     border-radius: var(--radius);
     padding: 16px 18px;
     background: color-mix(in srgb, var(--panel-strong) 44%, transparent);
+}
+
+.guide-recents {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.guide-recent {
+    display: grid;
+    align-content: start;
+    min-height: 148px;
+    gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    background: color-mix(in srgb, var(--panel-strong) 62%, transparent);
+    transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.guide-recent:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--forest) 42%, var(--line));
+    background: color-mix(in srgb, var(--panel-strong) 86%, transparent);
+}
+
+.guide-recent time {
+    color: var(--olive);
+    font-family: var(--font-ui);
+    font-size: 0.76rem;
+    font-weight: 680;
+    letter-spacing: 0.04em;
+}
+
+.guide-recent strong {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.04rem;
+    font-weight: 620;
+    line-height: 1.2;
+}
+
+.guide-recent span {
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    line-height: 1.48;
 }
 
 .guide-signal {
@@ -1333,8 +1380,8 @@ li + li {
         grid-template-columns: 1fr;
     }
 
-    .guide-detail {
-        max-width: none;
+    .guide-recents {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -1359,6 +1406,7 @@ li + li {
     .guide-row,
     .guide-detail,
     .guide-metrics,
+    .guide-recents,
     .guide-points {
         grid-template-columns: 1fr;
     }

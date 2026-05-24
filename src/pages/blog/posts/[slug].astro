@@ -1,31 +1,23 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { slugFromPath } from "../../../utils/content";
 
 export function getStaticPaths() {
   const modules = import.meta.glob("../../../content/blog/**/*.md", { eager: true });
-  const slugFromPath = (path: string) =>
-    path
-      .replace("../../../content/blog/", "")
-      .replace(/\.md$/, "")
-      .split("/")
-      .map((part) =>
-        part
-          .trim()
-          .toLowerCase()
-          .replace(/&/g, "and")
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-+|-+$/g, "")
-      )
-      .filter(Boolean)
-      .join("--");
 
-  return Object.entries(modules).map(([path, mod]) => {
-    const slug = slugFromPath(path);
-    return {
-      params: { slug },
-      props: { post: mod }
-    };
-  });
+  return Object.entries(modules)
+    .filter(([, mod]) => {
+      const post = mod as { frontmatter?: { title?: string; date?: string | Date } };
+      const date = new Date(post.frontmatter?.date || "");
+      return Boolean(post.frontmatter?.title) && !Number.isNaN(date.getTime());
+    })
+    .map(([path, mod]) => {
+      const slug = slugFromPath(path, "../../../content/blog/");
+      return {
+        params: { slug },
+        props: { post: mod }
+      };
+    });
 }
 
 const { post } = Astro.props as {

@@ -2,19 +2,15 @@
 import PageHead from "../../components/PageHead.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { t } from "../../data/site";
+import { collectContentPreviews } from "../../utils/content";
 
 const modules = import.meta.glob("../../content/news/**/*.md", { eager: true });
+const rawModules = import.meta.glob("../../content/news/**/*.md", { eager: true, query: "?raw", import: "default" });
 
-const newsItems = Object.entries(modules)
-  .map(([, mod]) => {
-    const item = mod as {
-      frontmatter: { title: string; date: string | Date; description?: string };
-      Content: (_props: Record<string, never>) => unknown;
-    };
-    const date = new Date(item.frontmatter.date);
-    return { ...item.frontmatter, date, Content: item.Content };
-  })
-  .sort((a, b) => b.date.getTime() - a.date.getTime());
+const newsItems = collectContentPreviews(modules, rawModules, {
+  basePath: "../../content/news/",
+  hrefForSlug: (slug) => `/news/#${slug}`
+});
 ---
 
 <BaseLayout title="News | Shuangben Chen" description="Recent updates and notes by Shuangben Chen.">
@@ -24,11 +20,11 @@ const newsItems = Object.entries(modules)
       <div class="section-label"><h2 data-i18n="news.title">{t("news.title")}</h2><p data-i18n="news.desc">{t("news.desc")}</p></div>
       <div class="news-list">
         {newsItems.map((item) => (
-          <details class="news-item card">
+          <details class="news-item card" id={item.slug}>
             <summary>
               <span class="news-node" aria-hidden="true"></span>
               <span class="news-summary-main">
-                <time class="date" datetime={item.date.toISOString()}>{item.date.toISOString().slice(0, 10)}</time>
+                <time class="date" datetime={item.date.toISOString()}>{item.dateLabel}</time>
                 <strong>{item.title}</strong>
                 {item.description && <span class="news-description">{item.description}</span>}
                 <span class="news-read-more">Read more</span>
