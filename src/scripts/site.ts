@@ -7,6 +7,8 @@ const searchInput = document.querySelector<HTMLInputElement>("#site-search");
 const searchResults = document.querySelector<HTMLDivElement>("#search-results");
 const menuToggle = document.querySelector<HTMLButtonElement>("#menu-toggle");
 const nav = document.querySelector<HTMLElement>(".nav");
+const navLinks = document.querySelector<HTMLElement>(".nav-links");
+const navTools = document.querySelector<HTMLElement>(".nav-tools");
 const lastModifiedNode = document.querySelector<HTMLElement>("[data-last-modified]");
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const themeModes = ["system", "light", "dark"] as const;
@@ -15,6 +17,7 @@ type ThemeMode = typeof themeModes[number];
 
 let currentLanguage = (localStorage.getItem("language") as Locale | null) || "en";
 let currentThemeMode = (localStorage.getItem("themeMode") as ThemeMode | null) || "system";
+let menuScrollY = 0;
 
 function applyLanguage(language: Locale) {
   currentLanguage = language;
@@ -138,13 +141,41 @@ function markActiveNav() {
   });
 }
 
+function setMenuPanelState(isOpen: boolean) {
+  [navLinks, navTools].forEach((panel) => {
+    if (!panel) {
+      return;
+    }
+    if (isOpen) {
+      panel.style.transition = "none";
+      panel.style.opacity = "1";
+      panel.style.pointerEvents = "auto";
+      panel.style.transform = "translateX(0)";
+      return;
+    }
+    panel.style.removeProperty("transition");
+    panel.style.removeProperty("opacity");
+    panel.style.removeProperty("pointer-events");
+    panel.style.removeProperty("transform");
+  });
+}
+
 function setMenuOpen(isOpen: boolean) {
   if (!nav) {
     return;
   }
+  if (isOpen) {
+    menuScrollY = window.scrollY;
+  }
   nav.classList.toggle("is-open", isOpen);
+  navLinks?.classList.toggle("is-open", isOpen);
+  navTools?.classList.toggle("is-open", isOpen);
+  setMenuPanelState(isOpen);
   document.body.classList.toggle("menu-open", isOpen);
   menuToggle?.setAttribute("aria-expanded", String(isOpen));
+  if (!isOpen) {
+    window.scrollTo(0, menuScrollY);
+  }
 }
 
 menuToggle?.addEventListener("click", () => {
@@ -178,7 +209,10 @@ document.addEventListener("click", (event) => {
   if (!target.closest(".search")) {
     searchResults?.classList.remove("is-open");
   }
-  if (nav?.classList.contains("is-open") && !target.closest(".nav")) {
+  if (
+    nav?.classList.contains("is-open") &&
+    !target.closest(".nav-links, .nav-tools, .menu-toggle")
+  ) {
     setMenuOpen(false);
   }
 });
