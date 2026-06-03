@@ -2,6 +2,10 @@
 import PageHead from "../../../components/PageHead.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { t } from "../../../data/site";
+import { getCollection } from "astro:content";
+import { projectHref, projectsByTrack } from "../../../utils/projects";
+
+const projects = projectsByTrack(await getCollection("projects"), ["design", "media"]);
 ---
 
 <BaseLayout title="Design Portfolio | Shuangben Chen" description="Design portfolio by Shuangben Chen.">
@@ -10,8 +14,18 @@ import { t } from "../../../data/site";
     <section class="section">
       <div class="section-label"><h2 data-i18n="projects.design.nav">{t("projects.design.nav")}</h2><p>Visual identity · Posters · Communication</p></div>
       <div class="content-grid">
-        <article class="card"><p class="eyebrow" data-i18n="projects.design.type">{t("projects.design.type")}</p><h3 data-i18n="projects.design.title">{t("projects.design.title")}</h3><p class="muted" data-i18n="projects.design.body">{t("projects.design.body")}</p></article>
-        <article class="card"><p class="eyebrow" data-i18n="projects.media.type">{t("projects.media.type")}</p><h3 data-i18n="projects.media.title">{t("projects.media.title")}</h3><p class="muted" data-i18n="projects.media.body">{t("projects.media.body")}</p></article>
+        {projects.map((project) => (
+          <a class="card project-card" href={projectHref(project)}>
+            <p class="eyebrow">{project.data.type}</p>
+            <h3>{project.data.title}</h3>
+            <p class="muted">{project.data.description}</p>
+            <div class="project-card-meta">
+              <span>{project.data.status}</span>
+              <span>{project.data.role}</span>
+            </div>
+            <div class="tags">{project.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+          </a>
+        ))}
       </div>
     </section>
   </main>

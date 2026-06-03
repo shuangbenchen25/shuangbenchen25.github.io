@@ -19,6 +19,7 @@
 - 博客 Markdown：`src/content/blog/*.md`
 - 动态页：`src/pages/news/index.astro`
 - 动态 Markdown：`src/content/news/*.md`
+- 项目 Markdown：`src/content/projects/*.md`
 - 底部联系方式：`src/data/site.ts` 中的 `contactLinks`
 - 其他页：`src/pages/others/index.astro`
 - 名词解释页：`src/pages/terms/*/index.astro`
@@ -49,7 +50,12 @@ export const translations = {
 
 ## 修改搜索
 
-站内搜索数据在 `src/data/site.ts` 的 `searchIndex` 中。新增页面后，补一项：
+站内搜索现在由两部分组成：
+
+- 核心页面关键词：`src/data/site.ts` 的 `searchIndex`
+- Blog、News、Projects 的 Markdown 内容：`src/data/search.ts` 自动收集
+
+新增普通页面后，在 `src/data/site.ts` 的 `searchIndex` 中补一项：
 
 ```ts
 {
@@ -60,6 +66,8 @@ export const translations = {
 ```
 
 `text` 主要用于匹配关键词，不会完整显示在页面上。
+
+新增 Blog、News 或 Project Markdown 后，不需要手动补搜索索引。
 
 ## 添加博客
 
@@ -132,6 +140,45 @@ description: "One sentence summary."
 ```
 
 下面写正文。构建时会自动按日期倒序显示在 `/news/`。
+
+## 添加 Project 项目
+
+项目页现在由 Markdown 维护。新增项目只需要在 `src/content/projects/` 下新建文件：
+
+```text
+src/content/projects/my-project.md
+```
+
+写 front matter：
+
+```yaml
+---
+title: "My Project"
+slug: "my-project"
+track: "research"
+type: "Research Project"
+date: 2026-05-20
+status: "Active"
+role: "Undergraduate Research Assistant"
+description: "One sentence summary."
+tags: ["Robotics", "Reinforcement Learning"]
+featured: true
+order: 4
+links:
+  - label: "Repository"
+    url: "https://github.com/example/project"
+---
+```
+
+字段说明：
+
+- `slug` 会生成详情页 `/projects/my-project/`
+- `track` 只能是 `research`、`design` 或 `media`
+- `order` 控制项目列表排序，数字越小越靠前
+- `tags` 会显示为标签，也会进入搜索
+- `links` 可省略，适合放论文、GitHub、作品集或外部页面
+
+正文直接写 Markdown。构建时，项目会自动出现在 `/projects/`，并按 `track` 出现在 `/projects/research/` 或 `/projects/design/`。
 
 ## 修改底部联系方式
 

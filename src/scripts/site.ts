@@ -1,4 +1,5 @@
-import { searchIndex, translations, type Locale } from "../data/site";
+import { translations, type Locale } from "../data/site";
+import { searchIndex } from "../data/search";
 
 const root = document.documentElement;
 const languageToggle = document.querySelector<HTMLButtonElement>("#language-toggle");

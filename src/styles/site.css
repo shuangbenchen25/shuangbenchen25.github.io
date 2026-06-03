@@ -968,6 +968,70 @@ li + li {
     background: color-mix(in srgb, var(--panel-strong) 86%, transparent);
 }
 
+.project-card {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+}
+
+.project-card .tags {
+    margin-top: 4px;
+}
+
+.project-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+}
+
+.project-card-meta span {
+    border-left: 2px solid color-mix(in srgb, var(--forest) 36%, transparent);
+    padding-left: 8px;
+}
+
+.project-detail {
+    display: grid;
+    gap: 18px;
+}
+
+.project-detail-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+}
+
+.project-detail-meta div {
+    border-top: 1px solid color-mix(in srgb, var(--forest) 28%, transparent);
+    padding-top: 10px;
+}
+
+.project-detail-meta dt {
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.project-detail-meta dd {
+    margin: 6px 0 0;
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+}
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 .term-link {
     color: var(--forest);
     font-weight: 680;
@@ -1440,6 +1504,7 @@ li + li {
 
     .split,
     .project-menu,
+    .project-detail-meta,
     .guide-detail,
     .guide-metrics,
     .guide-notes,

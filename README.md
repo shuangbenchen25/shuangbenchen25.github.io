@@ -12,7 +12,10 @@ Astro source lives in `src/` and builds to `dist/`:
 - `src/components/PageHead.astro`: reusable page heading.
 - `src/pages/`: route files for About, Academics, Projects, Blog, Contact, Others, and Terms.
 - `src/content/blog/`: Markdown blog posts discovered automatically at build time.
+- `src/content/news/`: Markdown news items discovered automatically at build time.
+- `src/content/projects/`: Markdown project entries used by project lists and detail pages.
 - `src/data/site.ts`: bilingual text, navigation data, search index, and shared tag lists.
+- `src/data/search.ts`: generated static search index that combines core pages and Markdown content.
 - `src/scripts/site.ts`: client-side language toggle, search, active nav, theme mode, and footer update logic.
 - `src/styles/site.css`: shared visual system.
 - `public/assets/`: static favicon and CV copied into the built site.
@@ -54,7 +57,8 @@ Astro telemetry is disabled in all npm scripts with `ASTRO_TELEMETRY_DISABLED=1`
 - Edit shared layout in `src/components/` and `src/layouts/`.
 - Edit page structure in `src/pages/`.
 - Add blog posts as Markdown files in `src/content/blog/`.
-- Update search results in the `searchIndex` array in `src/data/site.ts`.
+- Add project entries as Markdown files in `src/content/projects/`.
+- Search automatically includes Blog, News, and Projects Markdown content; edit core page search keywords in `src/data/site.ts`.
 - Replace the CV at `public/assets/cv/shuangben-chen-cv.pdf`.
 
 See `CONTENT_GUIDE.md` for the Chinese maintenance guide.
