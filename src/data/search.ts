@@ -15,6 +15,7 @@ type ContentSearchOptions = {
 const blogRawModules = import.meta.glob("../content/blog/**/*.md", { eager: true, query: "?raw", import: "default" });
 const newsRawModules = import.meta.glob("../content/news/**/*.md", { eager: true, query: "?raw", import: "default" });
 const projectRawModules = import.meta.glob("../content/projects/**/*.md", { eager: true, query: "?raw", import: "default" });
+const publicationRawModules = import.meta.glob("../content/publications/**/*.md", { eager: true, query: "?raw", import: "default" });
 
 function readScalar(frontmatter: string, key: string) {
   const match = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, "m"));
@@ -78,6 +79,10 @@ const contentSearchIndex = [
   ...entriesFromMarkdown(projectRawModules, {
     basePath: "../content/projects/",
     hrefForSlug: (slug) => `/projects/${slug}/`
+  }),
+  ...entriesFromMarkdown(publicationRawModules, {
+    basePath: "../content/publications/",
+    hrefForSlug: () => "/publications/"
   })
 ];
 

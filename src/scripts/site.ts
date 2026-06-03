@@ -39,6 +39,13 @@ function applyLanguage(language: Locale) {
     }
   });
 
+  document.querySelectorAll<HTMLElement>("[data-locale-en]").forEach((node) => {
+    const text = language === "zh" ? node.dataset.localeZh : node.dataset.localeEn;
+    if (text) {
+      node.textContent = text;
+    }
+  });
+
   if (languageToggle) {
     languageToggle.textContent = language === "en" ? "中文" : "EN";
   }

@@ -1,34 +1,38 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { slugFromPath } from "../../../utils/content";
+import { readingMinutesFromMarkdown, slugFromPath, tagSlug } from "../../../utils/content";
 
 export function getStaticPaths() {
   const modules = import.meta.glob("../../../content/blog/**/*.md", { eager: true });
+  const rawModules = import.meta.glob("../../../content/blog/**/*.md", { eager: true, query: "?raw", import: "default" });
 
   return Object.entries(modules)
     .filter(([, mod]) => {
-      const post = mod as { frontmatter?: { title?: string; date?: string | Date } };
+      const post = mod as { frontmatter?: { title?: string; date?: string | Date; draft?: boolean } };
       const date = new Date(post.frontmatter?.date || "");
-      return Boolean(post.frontmatter?.title) && !Number.isNaN(date.getTime());
+      return Boolean(post.frontmatter?.title) && !Number.isNaN(date.getTime()) && !post.frontmatter?.draft;
     })
     .map(([path, mod]) => {
       const slug = slugFromPath(path, "../../../content/blog/");
       return {
         params: { slug },
-        props: { post: mod }
+        props: { post: mod, raw: String(rawModules[path] || "") }
       };
     });
 }
 
-const { post } = Astro.props as {
+const { post, raw } = Astro.props as {
   post: {
-    frontmatter: { title: string; date: string | Date; description?: string };
+    frontmatter: { title: string; date: string | Date; description?: string; tags?: string[] };
     Content: unknown;
   };
+  raw: string;
 };
 const { Content } = post as { Content: (_props: Record<string, never>) => unknown };
 const date = new Date(post.frontmatter.date);
 const isoDate = date.toISOString().slice(0, 10);
+const tags = post.frontmatter.tags || [];
+const readingMinutes = readingMinutesFromMarkdown(raw);
 ---
 
 <BaseLayout title={`${post.frontmatter.title} | Shuangben Chen`} description={post.frontmatter.description || post.frontmatter.title}>
@@ -36,6 +40,10 @@ const isoDate = date.toISOString().slice(0, 10);
     <article class="page-head">
       <p class="eyebrow">{isoDate}</p>
       <h1 class="page-title">{post.frontmatter.title}</h1>
+      <p class="post-meta-line">
+        <span>{readingMinutes} min read</span>
+        {tags.map((tag) => <a href={`/blog/tags/${tagSlug(tag)}/`}>#{tag}</a>)}
+      </p>
       {post.frontmatter.description && <p>{post.frontmatter.description}</p>}
     </article>
     <section class="section">

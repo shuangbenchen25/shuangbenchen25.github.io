@@ -1,0 +1,57 @@
+---
+import PageHead from "../../../components/PageHead.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { collectContentPreviews, tagSlug, type ContentPreview } from "../../../utils/content";
+
+export function getStaticPaths() {
+  const modules = import.meta.glob("../../../content/blog/**/*.md", { eager: true });
+  const rawModules = import.meta.glob("../../../content/blog/**/*.md", { eager: true, query: "?raw", import: "default" });
+  const allPosts = collectContentPreviews(modules, rawModules, {
+    basePath: "../../../content/blog/",
+    hrefForSlug: (slug) => `/blog/posts/${slug}/`
+  });
+  const seen = new Map<string, string>();
+  for (const post of allPosts) {
+    for (const tag of post.tags) {
+      seen.set(tagSlug(tag), tag);
+    }
+  }
+
+  return [...seen.entries()].map(([slug, label]) => ({
+    params: { tag: slug },
+    props: { label, posts: allPosts.filter((post) => post.tags.some((tag) => tagSlug(tag) === slug)) }
+  }));
+}
+
+const { label, posts } = Astro.props as {
+  label: string;
+  posts: ContentPreview[];
+};
+---
+
+<BaseLayout title={`#${label} | Blog | Shuangben Chen`} description={`Blog posts tagged ${label}.`}>
+  <main class="site-shell">
+    <PageHead title={`#${label}`} desc={`${posts.length} post${posts.length === 1 ? "" : "s"}`} />
+    <section class="section">
+      <div class="section-label">
+        <h2>Tag</h2>
+        <p>Blog archive</p>
+      </div>
+      <article class="card">
+        <div class="post-list">
+          {posts.map((post) => (
+            <a class="post-item" href={post.href}>
+              <span class="post-item-main">
+                <strong>{post.title}</strong>
+                <span class="post-meta-line"><span>{post.readingMinutes} min read</span></span>
+                {post.description && <span class="post-description">{post.description}</span>}
+                {post.excerpt && <span class="post-excerpt">{post.excerpt}</span>}
+              </span>
+              <span class="post-date">{post.dateLabel}</span>
+            </a>
+          ))}
+        </div>
+      </article>
+    </section>
+  </main>
+</BaseLayout>

@@ -2,6 +2,7 @@
 title: "DNN & LLM Notes"
 date: 2025-10-16
 description: "Notes for blog tests."
+tags: ["AI", "Course Notes"]
 ---
 
 # DNN&LLM

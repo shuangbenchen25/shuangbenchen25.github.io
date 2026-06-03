@@ -2,6 +2,7 @@
 title: "Movie Review: Dear You (2026)"
 date: 2026-05-18
 description: "Review of Dear You, recommended as 2026 China's best movie and script."
+tags: ["Film", "Review"]
 ---
 
 # 《给阿嬷的情书》（2026）

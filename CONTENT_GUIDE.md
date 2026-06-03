@@ -14,16 +14,20 @@
 - 项目总览：`src/pages/projects/index.astro`
 - 研究项目：`src/pages/projects/research/index.astro`
 - 设计作品集：`src/pages/projects/design/index.astro`
+- 论文页：`src/pages/publications/index.astro`
+- 网页 CV：`src/pages/cv/index.astro`
 - 博客列表：`src/pages/blog/index.astro`
 - 博客文章页模板：`src/pages/blog/posts/[slug].astro`
 - 博客 Markdown：`src/content/blog/*.md`
 - 动态页：`src/pages/news/index.astro`
 - 动态 Markdown：`src/content/news/*.md`
 - 项目 Markdown：`src/content/projects/*.md`
+- 论文 Markdown：`src/content/publications/*.md`
+- 结构化 CV Markdown：`src/content/cv/*.md`
 - 底部联系方式：`src/data/site.ts` 中的 `contactLinks`
 - 其他页：`src/pages/others/index.astro`
 - 名词解释页：`src/pages/terms/*/index.astro`
-- CV：`public/assets/cv/shuangben-chen-cv.pdf`
+- PDF CV：`public/assets/cv/shuangben-chen-cv.pdf`
 
 ## 修改中英文
 
@@ -53,7 +57,7 @@ export const translations = {
 站内搜索现在由两部分组成：
 
 - 核心页面关键词：`src/data/site.ts` 的 `searchIndex`
-- Blog、News、Projects 的 Markdown 内容：`src/data/search.ts` 自动收集
+- Blog、News、Projects、Publications 的 Markdown 内容：`src/data/search.ts` 自动收集
 
 新增普通页面后，在 `src/data/site.ts` 的 `searchIndex` 中补一项：
 
@@ -67,7 +71,7 @@ export const translations = {
 
 `text` 主要用于匹配关键词，不会完整显示在页面上。
 
-新增 Blog、News 或 Project Markdown 后，不需要手动补搜索索引。
+新增 Blog、News、Project 或 Publication Markdown 后，不需要手动补搜索索引。
 
 ## 添加博客
 
@@ -94,6 +98,7 @@ src/content/blog/research/2026-05-20-my-note.md
 title: "My Note"
 date: 2026-05-20
 description: "One sentence summary."
+tags: ["Research", "Course Notes"]
 ---
 ```
 
@@ -118,6 +123,14 @@ $$
 ```
 
 并自动把它列进 `/blog/`。
+
+如果写了 `tags`，网站会自动生成标签归档页，例如：
+
+```text
+/blog/tags/research/
+```
+
+Blog 会自动估算阅读时间。估算来自 Markdown 正文，不需要手动维护。
 
 文件名建议使用英文、数字和短横线。中文标题可以写在 front matter 的 `title` 里；文件名里不要使用空格、`&`、`#` 这类符号。
 
@@ -179,6 +192,86 @@ links:
 - `links` 可省略，适合放论文、GitHub、作品集或外部页面
 
 正文直接写 Markdown。构建时，项目会自动出现在 `/projects/`，并按 `track` 出现在 `/projects/research/` 或 `/projects/design/`。
+
+## 添加 Publication 论文/报告
+
+论文、预印本、海报和技术报告统一放在：
+
+```text
+src/content/publications/
+```
+
+示例：
+
+```yaml
+---
+title: "Paper Title"
+authors: ["Shuangben Chen", "Collaborator Name"]
+year: 2026
+venue: "arXiv"
+status: "Preprint"
+abstract: "One paragraph abstract."
+tags: ["Robotics", "Reinforcement Learning"]
+draft: false
+links:
+  - label: "PDF"
+    url: "https://example.com/paper.pdf"
+---
+```
+
+重要规则：
+
+- `draft: true` 的条目不会显示在 `/publications/`
+- 没有可公开论文时，页面会显示空状态，不会伪造论文记录
+- `links` 可放 PDF、arXiv、代码、项目页或 slides
+
+## 维护网页 CV
+
+结构化 CV 放在：
+
+```text
+src/content/cv/
+```
+
+每个文件是一条记录。`category` 只能是：
+
+```text
+education / experience / award / skill
+```
+
+示例：
+
+```yaml
+---
+title: "Undergraduate Research Assistant"
+category: "experience"
+organization: "Center on Frontiers of Computing Studies, Peking University"
+location: "Beijing, China"
+start: "2026"
+end: "Present"
+order: 20
+summary: "One sentence summary."
+highlights:
+  - "First evidence point."
+  - "Second evidence point."
+skills:
+  - "Python"
+  - "Reinforcement Learning"
+---
+```
+
+`order` 控制排序，数字越小越靠前。`/academics/` 和 `/cv/` 会共用这些 Markdown 内容，所以更新一次即可同步两个页面。
+
+## RSS 和 Sitemap
+
+网站现在自动生成：
+
+```text
+/rss.xml
+/sitemap.xml
+```
+
+RSS 会收集最近的 Blog 和 News；sitemap 会收集核心页面、Blog 文章和 Project 详情页。通常不需要手动维护。
 
 ## 修改底部联系方式
 

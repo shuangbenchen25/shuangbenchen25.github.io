@@ -4,6 +4,8 @@ export const translations = {
   en: {
     "nav.about": "About",
     "nav.academics": "Academics",
+    "nav.publications": "Publications",
+    "nav.cv": "CV",
     "nav.projects": "Projects",
     "nav.blog": "Blog",
     "nav.news": "News",
@@ -100,6 +102,16 @@ export const translations = {
     "academics.award2.org": "Fujian Provincial Department of Education",
     "academics.skills.title": "Skills and Languages",
     "academics.skills.note": "IELTS 7.5 overall with 9.0 in Reading; CET-4 score 645/710.",
+    "academics.education": "Education",
+    "academics.experience": "Experience",
+    "academics.awards": "Awards",
+    "academics.skills": "Skills",
+    "publications.title": "Publications",
+    "publications.desc": "Papers, preprints, posters, and technical reports.",
+    "publications.empty.title": "No public publication records yet",
+    "publications.empty.body": "The content collection is ready. Add Markdown entries in src/content/publications and set draft: false when a paper, poster, or report is ready to publish.",
+    "cv.title": "CV",
+    "cv.desc": "Structured academic record generated from Markdown entries.",
     "projects.title": "Projects",
     "projects.desc": "Research and design work that can grow into a portfolio.",
     "projects.research.nav": "Research",
@@ -143,6 +155,8 @@ export const translations = {
   zh: {
     "nav.about": "关于",
     "nav.academics": "学术",
+    "nav.publications": "论文",
+    "nav.cv": "简历",
     "nav.projects": "项目",
     "nav.blog": "博客",
     "nav.news": "动态",
@@ -239,6 +253,16 @@ export const translations = {
     "academics.award2.org": "福建省教育厅",
     "academics.skills.title": "技能与语言",
     "academics.skills.note": "IELTS 7.5，阅读 9.0；CET-4 645/710。",
+    "academics.education": "教育背景",
+    "academics.experience": "经历",
+    "academics.awards": "奖项",
+    "academics.skills": "技能",
+    "publications.title": "论文",
+    "publications.desc": "论文、预印本、海报与技术报告。",
+    "publications.empty.title": "暂无公开论文记录",
+    "publications.empty.body": "内容集合已经准备好。后续在 src/content/publications 添加 Markdown 条目，并在论文、海报或报告可公开时设置 draft: false。",
+    "cv.title": "简历",
+    "cv.desc": "由 Markdown 条目生成的结构化学术记录。",
     "projects.title": "项目",
     "projects.desc": "可逐步扩展为作品集的科研与设计实践。",
     "projects.research.nav": "研究",
@@ -285,7 +309,14 @@ export type TranslationKey = keyof typeof translations.en;
 
 export const navItems = [
   { href: "/", key: "nav.about" },
-  { href: "/academics/", key: "nav.academics" },
+  {
+    href: "/academics/",
+    key: "nav.academics",
+    children: [
+      { href: "/publications/", key: "nav.publications" },
+      { href: "/cv/", key: "nav.cv" }
+    ]
+  },
   {
     href: "/projects/",
     key: "nav.projects",
@@ -313,6 +344,16 @@ export const searchIndex = [
     url: "/academics/",
     title: { en: "Academics", zh: "学术" },
     text: "education coursework scholarship skills IELTS CET4 gaokao 696 Peking University awards 学术 教育 课程 奖学金 技能 高考 福建"
+  },
+  {
+    url: "/publications/",
+    title: { en: "Publications", zh: "论文" },
+    text: "publications papers preprints posters technical reports bibliography 论文 预印本 海报 技术报告"
+  },
+  {
+    url: "/cv/",
+    title: { en: "CV", zh: "简历" },
+    text: "cv resume education experience awards skills academic record 简历 教育 经历 奖项 技能 学术记录"
   },
   {
     url: "/projects/",

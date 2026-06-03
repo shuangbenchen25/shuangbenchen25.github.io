@@ -14,6 +14,8 @@ Astro source lives in `src/` and builds to `dist/`:
 - `src/content/blog/`: Markdown blog posts discovered automatically at build time.
 - `src/content/news/`: Markdown news items discovered automatically at build time.
 - `src/content/projects/`: Markdown project entries used by project lists and detail pages.
+- `src/content/publications/`: Markdown publication records; drafts are hidden.
+- `src/content/cv/`: structured CV entries shared by Academics and CV pages.
 - `src/data/site.ts`: bilingual text, navigation data, search index, and shared tag lists.
 - `src/data/search.ts`: generated static search index that combines core pages and Markdown content.
 - `src/scripts/site.ts`: client-side language toggle, search, active nav, theme mode, and footer update logic.
@@ -58,7 +60,10 @@ Astro telemetry is disabled in all npm scripts with `ASTRO_TELEMETRY_DISABLED=1`
 - Edit page structure in `src/pages/`.
 - Add blog posts as Markdown files in `src/content/blog/`.
 - Add project entries as Markdown files in `src/content/projects/`.
-- Search automatically includes Blog, News, and Projects Markdown content; edit core page search keywords in `src/data/site.ts`.
+- Add publication entries as Markdown files in `src/content/publications/` and set `draft: false` when public.
+- Add education, experience, awards, and skills in `src/content/cv/`.
+- Search automatically includes Blog, News, Projects, and Publications Markdown content; edit core page search keywords in `src/data/site.ts`.
+- RSS is generated at `/rss.xml`; sitemap is generated at `/sitemap.xml`.
 - Replace the CV at `public/assets/cv/shuangben-chen-cv.pdf`.
 
 See `CONTENT_GUIDE.md` for the Chinese maintenance guide.

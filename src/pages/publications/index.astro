@@ -1,0 +1,45 @@
+---
+import PageHead from "../../components/PageHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { t } from "../../data/site";
+import { getCollection } from "astro:content";
+import { visiblePublications } from "../../utils/publications";
+
+const publications = visiblePublications(await getCollection("publications"));
+---
+
+<BaseLayout title="Publications | Shuangben Chen" description="Publications, preprints, posters, and technical reports by Shuangben Chen.">
+  <main class="site-shell">
+    <PageHead titleKey="publications.title" descKey="publications.desc" title={t("publications.title")} desc={t("publications.desc")} />
+    <section class="section">
+      <div class="section-label">
+        <h2 data-i18n="publications.title">{t("publications.title")}</h2>
+        <p data-i18n="publications.desc">{t("publications.desc")}</p>
+      </div>
+      <div class="publication-list">
+        {publications.length ? publications.map((publication) => (
+          <article class="publication-item card">
+            <p class="eyebrow">{publication.data.year}{publication.data.venue ? ` · ${publication.data.venue}` : ""}</p>
+            <h3>{publication.data.title}</h3>
+            <p class="publication-authors">{publication.data.authors.join(", ")}</p>
+            {publication.data.status && <p class="muted">{publication.data.status}</p>}
+            {publication.data.abstract && <p>{publication.data.abstract}</p>}
+            {publication.data.tags?.length ? (
+              <div class="tags">{publication.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+            ) : null}
+            {publication.data.links?.length ? (
+              <div class="project-links">
+                {publication.data.links.map((link) => <a class="text-link" href={link.url}>{link.label}</a>)}
+              </div>
+            ) : null}
+          </article>
+        )) : (
+          <article class="card empty-state">
+            <h3 data-i18n="publications.empty.title">{t("publications.empty.title")}</h3>
+            <p data-i18n="publications.empty.body">{t("publications.empty.body")}</p>
+          </article>
+        )}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

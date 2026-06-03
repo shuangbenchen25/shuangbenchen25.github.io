@@ -2,6 +2,7 @@
 title: "Movie Review: Beoning (2018)"
 date: 2025-10-21
 description: "Review of Beoning, one of the best movie I reckon."
+tags: ["Film", "Review"]
 ---
 
 # 《燃烧》（2018）
