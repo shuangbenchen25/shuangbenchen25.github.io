@@ -2,14 +2,17 @@ import { translations, type Locale } from "../data/site";
 import { searchIndex } from "../data/search";
 
 const root = document.documentElement;
-const languageToggle = document.querySelector<HTMLButtonElement>("#language-toggle");
-const themeToggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
-const searchInput = document.querySelector<HTMLInputElement>("#site-search");
-const searchResults = document.querySelector<HTMLDivElement>("#search-results");
+const languageToggles = Array.from(document.querySelectorAll<HTMLButtonElement>("#language-toggle, [data-language-toggle]"));
+const themeToggles = Array.from(document.querySelectorAll<HTMLButtonElement>("#theme-toggle, [data-theme-toggle]"));
+const searchInputs = Array.from(document.querySelectorAll<HTMLInputElement>("#site-search, [data-site-search]"));
+const searchResultsNodes = Array.from(document.querySelectorAll<HTMLDivElement>("#search-results, [data-search-results]"));
 const menuToggle = document.querySelector<HTMLButtonElement>("#menu-toggle");
 const nav = document.querySelector<HTMLElement>(".nav");
 const navLinks = document.querySelector<HTMLElement>(".nav-links");
 const navTools = document.querySelector<HTMLElement>(".nav-tools");
+const refDemo = document.querySelector<HTMLElement>(".ref-demo");
+const refDemoMenuToggle = document.querySelector<HTMLButtonElement>("[data-ref-demo-menu]");
+const refDemoDockToggle = document.querySelector<HTMLButtonElement>("[data-ref-demo-dock-toggle]");
 const lastModifiedNode = document.querySelector<HTMLElement>("[data-last-modified]");
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const themeModes = ["system", "light", "dark"] as const;
@@ -19,6 +22,7 @@ type ThemeMode = typeof themeModes[number];
 let currentLanguage = (localStorage.getItem("language") as Locale | null) || "en";
 let currentThemeMode = (localStorage.getItem("themeMode") as ThemeMode | null) || "system";
 let menuScrollY = 0;
+const refDemoDockVisibleOffset = 120;
 
 function applyLanguage(language: Locale) {
   currentLanguage = language;
@@ -46,12 +50,12 @@ function applyLanguage(language: Locale) {
     }
   });
 
-  if (languageToggle) {
-    languageToggle.textContent = language === "en" ? "中文" : "EN";
-  }
+  languageToggles.forEach((toggle) => {
+    toggle.textContent = language === "en" ? "中文" : "EN";
+  });
   updateThemeButton();
   updateLastModified();
-  renderSearch(searchInput?.value || "");
+  renderSearchForAllInputs();
 }
 
 function formatLastModified() {
@@ -88,12 +92,11 @@ function themeIcon(mode: ThemeMode) {
 }
 
 function updateThemeButton() {
-  if (!themeToggle) {
-    return;
-  }
   const label = translations[currentLanguage][`theme.${currentThemeMode}`];
-  themeToggle.innerHTML = `<span class="theme-icon">${themeIcon(currentThemeMode)}</span><span class="theme-label">${label}</span>`;
-  themeToggle.setAttribute("aria-label", label);
+  themeToggles.forEach((toggle) => {
+    toggle.innerHTML = `<span class="theme-icon">${themeIcon(currentThemeMode)}</span><span class="theme-label">${label}</span>`;
+    toggle.setAttribute("aria-label", label);
+  });
 }
 
 function applyThemeMode(mode: ThemeMode) {
@@ -103,14 +106,18 @@ function applyThemeMode(mode: ThemeMode) {
   updateThemeButton();
 }
 
-function renderSearch(query: string) {
-  if (!searchResults) {
+function searchResultsForInput(input: HTMLInputElement) {
+  return input.closest(".search")?.querySelector<HTMLDivElement>("#search-results, [data-search-results]") || null;
+}
+
+function renderSearch(query: string, resultsNode: HTMLDivElement | null) {
+  if (!resultsNode) {
     return;
   }
   const cleanQuery = query.trim().toLowerCase();
-  searchResults.innerHTML = "";
+  resultsNode.innerHTML = "";
   if (!cleanQuery) {
-    searchResults.classList.remove("is-open");
+    resultsNode.classList.remove("is-open");
     return;
   }
 
@@ -125,17 +132,23 @@ function renderSearch(query: string) {
     const empty = document.createElement("div");
     empty.className = "search-result";
     empty.innerHTML = `<span>${translations[currentLanguage]["search.none"]}</span>`;
-    searchResults.appendChild(empty);
+    resultsNode.appendChild(empty);
   } else {
     matches.forEach((item) => {
       const result = document.createElement("a");
       result.className = "search-result";
       result.href = item.url;
       result.innerHTML = `<strong>${item.title[currentLanguage]}</strong><span>${item.text.slice(0, 118)}...</span>`;
-      searchResults.appendChild(result);
+      resultsNode.appendChild(result);
     });
   }
-  searchResults.classList.add("is-open");
+  resultsNode.classList.add("is-open");
+}
+
+function renderSearchForAllInputs() {
+  searchInputs.forEach((input) => {
+    renderSearch(input.value || "", searchResultsForInput(input));
+  });
 }
 
 function markActiveNav() {
@@ -186,6 +199,18 @@ function setMenuOpen(isOpen: boolean) {
   }
 }
 
+function updateRefDemoDockVisibility() {
+  if (!refDemo) {
+    return;
+  }
+  const isVisible = window.scrollY > refDemoDockVisibleOffset;
+  refDemo.classList.toggle("is-dock-visible", isVisible);
+  if (!isVisible && refDemo.classList.contains("is-dock-open")) {
+    refDemo.classList.remove("is-dock-open");
+    refDemoDockToggle?.setAttribute("aria-expanded", "false");
+  }
+}
+
 menuToggle?.addEventListener("click", () => {
   if (!nav) {
     return;
@@ -193,29 +218,52 @@ menuToggle?.addEventListener("click", () => {
   setMenuOpen(!nav.classList.contains("is-open"));
 });
 
-languageToggle?.addEventListener("click", () => {
+languageToggles.forEach((toggle) => toggle.addEventListener("click", () => {
   applyLanguage(currentLanguage === "en" ? "zh" : "en");
-});
+}));
 
-themeToggle?.addEventListener("click", () => {
+themeToggles.forEach((toggle) => toggle.addEventListener("click", () => {
   const nextMode = themeModes[(themeModes.indexOf(currentThemeMode) + 1) % themeModes.length];
   applyThemeMode(nextMode);
+}));
+
+refDemoMenuToggle?.addEventListener("click", () => {
+  const isOpen = !refDemo?.classList.contains("is-menu-open");
+  refDemo?.classList.toggle("is-menu-open", isOpen);
+  refDemoMenuToggle.setAttribute("aria-expanded", String(isOpen));
 });
 
-searchInput?.addEventListener("input", (event) => {
-  renderSearch((event.target as HTMLInputElement).value);
+refDemoDockToggle?.addEventListener("click", () => {
+  const isOpen = !refDemo?.classList.contains("is-dock-open");
+  refDemo?.classList.toggle("is-dock-open", isOpen);
+  refDemo?.classList.toggle("is-dock-visible", true);
+  refDemoDockToggle.setAttribute("aria-expanded", String(isOpen));
 });
 
-searchInput?.addEventListener("focus", () => {
-  if (searchInput.value.trim()) {
-    searchResults?.classList.add("is-open");
+window.addEventListener("scroll", updateRefDemoDockVisibility, { passive: true });
+
+searchInputs.forEach((input) => input.addEventListener("input", (event) => {
+  const currentInput = event.target as HTMLInputElement;
+  renderSearch(currentInput.value, searchResultsForInput(currentInput));
+}));
+
+searchInputs.forEach((input) => input.addEventListener("focus", () => {
+  if (input.value.trim()) {
+    searchResultsForInput(input)?.classList.add("is-open");
   }
-});
+}));
+
+searchResultsNodes.forEach((resultsNode) => resultsNode.addEventListener("click", (event) => {
+  if ((event.target as Element).closest("a")) {
+    refDemo?.classList.remove("is-menu-open");
+    refDemoMenuToggle?.setAttribute("aria-expanded", "false");
+  }
+}));
 
 document.addEventListener("click", (event) => {
   const target = event.target as Element;
   if (!target.closest(".search")) {
-    searchResults?.classList.remove("is-open");
+    searchResultsNodes.forEach((resultsNode) => resultsNode.classList.remove("is-open"));
   }
   if (
     nav?.classList.contains("is-open") &&
@@ -223,15 +271,38 @@ document.addEventListener("click", (event) => {
   ) {
     setMenuOpen(false);
   }
+  if (
+    refDemo?.classList.contains("is-menu-open") &&
+    !target.closest(".ref-demo-header-content, [data-ref-demo-menu]")
+  ) {
+    refDemo.classList.remove("is-menu-open");
+    refDemoMenuToggle?.setAttribute("aria-expanded", "false");
+  }
+  if (
+    refDemo?.classList.contains("is-dock-open") &&
+    !target.closest(".ref-demo-dock, [data-ref-demo-dock-toggle]")
+  ) {
+    refDemo.classList.remove("is-dock-open");
+    refDemoDockToggle?.setAttribute("aria-expanded", "false");
+  }
 });
 
 document.addEventListener("keydown", (event) => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
     event.preventDefault();
-    searchInput?.focus();
+    const visibleSearchInput = searchInputs.find((input) => input.offsetParent !== null) || searchInputs[0];
+    visibleSearchInput?.focus();
   }
   if (event.key === "Escape" && nav?.classList.contains("is-open")) {
     setMenuOpen(false);
+  }
+  if (event.key === "Escape" && refDemo?.classList.contains("is-menu-open")) {
+    refDemo.classList.remove("is-menu-open");
+    refDemoMenuToggle?.setAttribute("aria-expanded", "false");
+  }
+  if (event.key === "Escape" && refDemo?.classList.contains("is-dock-open")) {
+    refDemo.classList.remove("is-dock-open");
+    refDemoDockToggle?.setAttribute("aria-expanded", "false");
   }
 });
 
@@ -242,5 +313,6 @@ systemTheme.addEventListener("change", () => {
 });
 
 markActiveNav();
+updateRefDemoDockVisibility();
 applyThemeMode(currentThemeMode);
 applyLanguage(currentLanguage);
