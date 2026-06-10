@@ -21,17 +21,22 @@ const localeAttrs = (en?: string, zh?: string) => ({
 ---
 
 <BaseLayout title="Academics | Shuangben Chen" description="Academics, education, awards, and skills of Shuangben Chen.">
-  <main class="site-shell">
-    <PageHead titleKey="academics.title" descKey="academics.desc" title={t("academics.title")} desc={t("academics.desc")} />
-    <section class="section">
+  <main class="site-shell ref-site ref-subpage ref-academics">
+    <PageHead code="AC" titleKey="academics.title" descKey="academics.desc" title={t("academics.title")} desc={t("academics.desc")} />
+    <section class="section ref-stage">
       <div class="section-label">
+        <span class="ref-code-label">// record ledger</span>
         <h2 data-i18n="academics.title">{t("academics.title")}</h2>
         <p data-i18n="academics.desc">{t("academics.desc")}</p>
       </div>
-      <div class="content-grid">
+      <div class="content-grid ref-record-ledger">
         {cvGroups.map((group) => group.entries.length ? (
           <section class="academic-group" aria-labelledby={`academic-${group.category}`}>
-            <h3 id={`academic-${group.category}`}>{categoryLabels[group.category]}</h3>
+            <div class="ref-record-strip">
+              <span>{String(group.entries.length).padStart(2, "0")}</span>
+              <strong id={`academic-${group.category}`}>{categoryLabels[group.category]}</strong>
+              <small>{group.category}</small>
+            </div>
             <div class="timeline">
               {group.entries.map((entry) => (
                 <article class="timeline-item card">

@@ -9,13 +9,17 @@ const projects = sortProjects(await getCollection("projects"));
 ---
 
 <BaseLayout title="Projects | Shuangben Chen" description="Projects and portfolio work of Shuangben Chen.">
-  <main class="site-shell">
-    <PageHead titleKey="projects.title" descKey="projects.desc" title={t("projects.title")} desc={t("projects.desc")} />
-    <section class="section">
-      <div class="section-label"><h2 data-i18n="projects.title">{t("projects.title")}</h2><p data-i18n="projects.desc">{t("projects.desc")}</p></div>
-      <div class="project-menu">
-        {projects.map((project) => (
-          <a class="card project-card" href={projectHref(project)}>
+  <main class="site-shell ref-site ref-subpage ref-projects">
+    <PageHead code="PR" titleKey="projects.title" descKey="projects.desc" title={t("projects.title")} desc={t("projects.desc")} />
+    <section class="section ref-stage">
+      <div class="section-label">
+        <span class="ref-code-label">// portfolio tracks</span>
+        <h2 data-i18n="projects.title">{t("projects.title")}</h2>
+        <p data-i18n="projects.desc">{t("projects.desc")}</p>
+      </div>
+      <div class="project-menu ref-project-board">
+        {projects.map((project, index) => (
+          <a class="card project-card ref-project-tile" href={projectHref(project)} style={`--tile-index: "${String(index + 1).padStart(2, "0")}"`}>
             <p class="eyebrow">{project.data.type}</p>
             <h3>{project.data.title}</h3>
             <p class="muted">{project.data.description}</p>

@@ -4,12 +4,20 @@ interface Props {
   descKey?: string;
   title: string;
   desc: string;
+  code?: string;
 }
 
-const { titleKey, descKey, title, desc } = Astro.props;
+const { titleKey, descKey, title, desc, code } = Astro.props;
+const displayCode = code || title.slice(0, 2).toUpperCase();
 ---
 
 <header class="page-head">
-  <h1 class="page-title" data-i18n={titleKey}>{title}</h1>
-  <p data-i18n={descKey}>{desc}</p>
+  <div class="page-head-title">
+    <span class="page-head-kicker" aria-hidden="true">/ {displayCode}</span>
+    <h1 class="page-title" data-i18n={titleKey}>{title}</h1>
+  </div>
+  <div class="page-head-copy">
+    <span class="page-head-counter" aria-hidden="true">{displayCode}</span>
+    <p data-i18n={descKey}>{desc}</p>
+  </div>
 </header>

@@ -13,16 +13,18 @@ const navTools = document.querySelector<HTMLElement>(".nav-tools");
 const refDemo = document.querySelector<HTMLElement>(".ref-demo");
 const refDemoMenuToggle = document.querySelector<HTMLButtonElement>("[data-ref-demo-menu]");
 const refDemoDockToggle = document.querySelector<HTMLButtonElement>("[data-ref-demo-dock-toggle]");
+const refDemoCursor = document.querySelector<HTMLElement>("[data-ref-demo-cursor]");
+const siteDockToggle = document.querySelector<HTMLButtonElement>("[data-site-dock-toggle]");
+const siteCursor = document.querySelector<HTMLElement>("[data-site-cursor]");
 const lastModifiedNode = document.querySelector<HTMLElement>("[data-last-modified]");
-const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
-const themeModes = ["system", "light", "dark"] as const;
-
-type ThemeMode = typeof themeModes[number];
+const finePointer = window.matchMedia("(pointer: fine)");
 
 let currentLanguage = (localStorage.getItem("language") as Locale | null) || "en";
-let currentThemeMode = (localStorage.getItem("themeMode") as ThemeMode | null) || "system";
 let menuScrollY = 0;
 const refDemoDockVisibleOffset = 120;
+
+localStorage.removeItem("themeMode");
+root.dataset.theme = "light";
 
 function applyLanguage(language: Locale) {
   currentLanguage = language;
@@ -74,45 +76,34 @@ function updateLastModified() {
   lastModifiedNode.textContent = `${translations[currentLanguage]["footer.updated"]}: ${formatLastModified()}`;
 }
 
-function effectiveTheme() {
-  if (currentThemeMode === "system") {
-    return systemTheme.matches ? "dark" : "light";
-  }
-  return currentThemeMode;
-}
-
-function themeIcon(mode: ThemeMode) {
-  if (mode === "light") {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>';
-  }
-  if (mode === "dark") {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20.4 14.7A7.8 7.8 0 0 1 9.3 3.6 8.7 8.7 0 1 0 20.4 14.7Z"/></svg>';
-  }
-  return '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3.5" y="4.5" width="17" height="11" rx="2"/><path d="M8 20h8M10 15.5v4.5M14 15.5v4.5"/></svg>';
-}
-
 function updateThemeButton() {
-  const label = translations[currentLanguage][`theme.${currentThemeMode}`];
   themeToggles.forEach((toggle) => {
-    toggle.innerHTML = `<span class="theme-icon">${themeIcon(currentThemeMode)}</span><span class="theme-label">${label}</span>`;
-    toggle.setAttribute("aria-label", label);
+    toggle.hidden = true;
+    toggle.tabIndex = -1;
+    toggle.setAttribute("aria-hidden", "true");
   });
-}
-
-function applyThemeMode(mode: ThemeMode) {
-  currentThemeMode = mode;
-  localStorage.setItem("themeMode", mode);
-  root.dataset.theme = effectiveTheme();
-  updateThemeButton();
 }
 
 function searchResultsForInput(input: HTMLInputElement) {
   return input.closest(".search")?.querySelector<HTMLDivElement>("#search-results, [data-search-results]") || null;
 }
 
+function positionSearchResults(input: HTMLInputElement, resultsNode: HTMLDivElement) {
+  const rect = input.getBoundingClientRect();
+  const isHeaderSearch = Boolean(resultsNode.closest(".site-ref-header-content"));
+  const top = isHeaderSearch ? Math.min(Math.max(rect.bottom + 8, 68), 112) : rect.bottom + 8;
+  resultsNode.style.setProperty("--search-results-top", `${Math.round(top)}px`);
+  resultsNode.style.setProperty("--search-results-right", `${Math.max(10, Math.round(window.innerWidth - rect.right))}px`);
+  resultsNode.style.setProperty("--search-results-width", `${Math.min(360, Math.max(260, Math.round(rect.width * 1.82)))}px`);
+}
+
 function renderSearch(query: string, resultsNode: HTMLDivElement | null) {
   if (!resultsNode) {
     return;
+  }
+  const owningInput = resultsNode.closest(".search")?.querySelector<HTMLInputElement>("input");
+  if (owningInput) {
+    positionSearchResults(owningInput, resultsNode);
   }
   const cleanQuery = query.trim().toLowerCase();
   resultsNode.innerHTML = "";
@@ -211,6 +202,50 @@ function updateRefDemoDockVisibility() {
   }
 }
 
+function updateSiteDockVisibility() {
+  if (!siteDockToggle) {
+    return;
+  }
+  const isVisible = window.scrollY > refDemoDockVisibleOffset;
+  document.body.classList.toggle("is-dock-visible", isVisible);
+  if (!isVisible && document.body.classList.contains("is-dock-open")) {
+    document.body.classList.remove("is-dock-open");
+    siteDockToggle.setAttribute("aria-expanded", "false");
+  }
+}
+
+function updateRefDemoCursor(event: PointerEvent) {
+  if (!refDemo || !refDemoCursor || !finePointer.matches) {
+    return;
+  }
+  const target = event.target as Element | null;
+  const isHoveringTarget = Boolean(target?.closest("a, button, input, textarea, select, .ref-demo-feature-mark, .ref-demo-feature-details p, .ref-demo-feature-console, .ref-demo-media-card"));
+  refDemo.style.setProperty("--cursor-x", `${event.clientX + 14}px`);
+  refDemo.style.setProperty("--cursor-y", `${event.clientY + 14}px`);
+  refDemo.classList.add("is-cursor-live");
+  refDemo.classList.toggle("is-cursor-hover", isHoveringTarget);
+}
+
+function hideRefDemoCursor() {
+  refDemo?.classList.remove("is-cursor-live", "is-cursor-hover");
+}
+
+function updateSiteCursor(event: PointerEvent) {
+  if (refDemo || !siteCursor || !finePointer.matches) {
+    return;
+  }
+  const target = event.target as Element | null;
+  const isHoveringTarget = Boolean(target?.closest("a, button, input, textarea, select, summary, .card, .news-item, .project-card, .post-item"));
+  document.body.style.setProperty("--cursor-x", `${event.clientX + 14}px`);
+  document.body.style.setProperty("--cursor-y", `${event.clientY + 14}px`);
+  document.body.classList.add("is-cursor-live");
+  document.body.classList.toggle("is-cursor-hover", isHoveringTarget);
+}
+
+function hideSiteCursor() {
+  document.body.classList.remove("is-cursor-live", "is-cursor-hover");
+}
+
 menuToggle?.addEventListener("click", () => {
   if (!nav) {
     return;
@@ -220,11 +255,6 @@ menuToggle?.addEventListener("click", () => {
 
 languageToggles.forEach((toggle) => toggle.addEventListener("click", () => {
   applyLanguage(currentLanguage === "en" ? "zh" : "en");
-}));
-
-themeToggles.forEach((toggle) => toggle.addEventListener("click", () => {
-  const nextMode = themeModes[(themeModes.indexOf(currentThemeMode) + 1) % themeModes.length];
-  applyThemeMode(nextMode);
 }));
 
 refDemoMenuToggle?.addEventListener("click", () => {
@@ -240,7 +270,22 @@ refDemoDockToggle?.addEventListener("click", () => {
   refDemoDockToggle.setAttribute("aria-expanded", String(isOpen));
 });
 
-window.addEventListener("scroll", updateRefDemoDockVisibility, { passive: true });
+siteDockToggle?.addEventListener("click", () => {
+  const isOpen = !document.body.classList.contains("is-dock-open");
+  document.body.classList.toggle("is-dock-open", isOpen);
+  document.body.classList.toggle("is-dock-visible", true);
+  siteDockToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+window.addEventListener("scroll", () => {
+  updateRefDemoDockVisibility();
+  updateSiteDockVisibility();
+}, { passive: true });
+
+refDemo?.addEventListener("pointermove", updateRefDemoCursor);
+refDemo?.addEventListener("pointerleave", hideRefDemoCursor);
+document.addEventListener("pointermove", updateSiteCursor);
+document.addEventListener("pointerleave", hideSiteCursor);
 
 searchInputs.forEach((input) => input.addEventListener("input", (event) => {
   const currentInput = event.target as HTMLInputElement;
@@ -249,7 +294,11 @@ searchInputs.forEach((input) => input.addEventListener("input", (event) => {
 
 searchInputs.forEach((input) => input.addEventListener("focus", () => {
   if (input.value.trim()) {
-    searchResultsForInput(input)?.classList.add("is-open");
+    const resultsNode = searchResultsForInput(input);
+    if (resultsNode) {
+      positionSearchResults(input, resultsNode);
+      resultsNode.classList.add("is-open");
+    }
   }
 }));
 
@@ -285,6 +334,13 @@ document.addEventListener("click", (event) => {
     refDemo.classList.remove("is-dock-open");
     refDemoDockToggle?.setAttribute("aria-expanded", "false");
   }
+  if (
+    document.body.classList.contains("is-dock-open") &&
+    !target.closest(".site-ref-dock, [data-site-dock-toggle]")
+  ) {
+    document.body.classList.remove("is-dock-open");
+    siteDockToggle?.setAttribute("aria-expanded", "false");
+  }
 });
 
 document.addEventListener("keydown", (event) => {
@@ -304,15 +360,15 @@ document.addEventListener("keydown", (event) => {
     refDemo.classList.remove("is-dock-open");
     refDemoDockToggle?.setAttribute("aria-expanded", "false");
   }
-});
-
-systemTheme.addEventListener("change", () => {
-  if (currentThemeMode === "system") {
-    root.dataset.theme = effectiveTheme();
+  if (event.key === "Escape" && document.body.classList.contains("is-dock-open")) {
+    document.body.classList.remove("is-dock-open");
+    siteDockToggle?.setAttribute("aria-expanded", "false");
   }
 });
 
 markActiveNav();
 updateRefDemoDockVisibility();
-applyThemeMode(currentThemeMode);
+updateSiteDockVisibility();
+root.dataset.theme = "light";
+updateThemeButton();
 applyLanguage(currentLanguage);

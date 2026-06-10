@@ -2,7 +2,7 @@
 import PageHead from "../../components/PageHead.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { t } from "../../data/site";
-import { collectContentPreviews } from "../../utils/content";
+import { collectContentPreviews, tagSlug } from "../../utils/content";
 
 const modules = import.meta.glob("../../content/blog/**/*.md", { eager: true });
 const rawModules = import.meta.glob("../../content/blog/**/*.md", { eager: true, query: "?raw", import: "default" });
@@ -11,15 +11,45 @@ const posts = collectContentPreviews(modules, rawModules, {
   basePath: "../../content/blog/",
   hrefForSlug: (slug) => `/blog/posts/${slug}/`
 });
+
+const tagCounts = posts
+  .flatMap((post) => post.tags)
+  .reduce<Map<string, number>>((counts, tag) => counts.set(tag, (counts.get(tag) || 0) + 1), new Map());
+const maxTagCount = Math.max(1, ...tagCounts.values());
+const tagCloud = Array.from(tagCounts.entries())
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .slice(0, 14)
+  .map(([tag, count]) => ({ tag, count, weight: 0.72 + (count / maxTagCount) * 1.18 }));
 ---
 
 <BaseLayout title="Blog | Shuangben Chen" description="Blog and notes by Shuangben Chen.">
-  <main class="site-shell">
-    <PageHead titleKey="blog.title" descKey="blog.desc" title={t("blog.title")} desc={t("blog.desc")} />
-    <section class="section">
-      <div class="section-label"><h2 data-i18n="blog.title">{t("blog.title")}</h2><p data-i18n="blog.desc">{t("blog.desc")}</p></div>
-      <article class="card">
-        <div class="post-list">
+  <main class="site-shell ref-site ref-subpage ref-blog">
+    <PageHead code="BL" titleKey="blog.title" descKey="blog.desc" title={t("blog.title")} desc={t("blog.desc")} />
+    <section class="section ref-stage">
+      <div class="section-label">
+        <span class="ref-code-label">// markdown archive</span>
+        <h2 data-i18n="blog.title">{t("blog.title")}</h2>
+        <p data-i18n="blog.desc">{t("blog.desc")}</p>
+      </div>
+      <article class="card ref-blog-board">
+        {posts[0] && (
+          <a class="ref-latest-post" href={posts[0].href}>
+            <span>{posts[0].dateLabel}</span>
+            <strong>{posts[0].title}</strong>
+            <small>{posts[0].description || posts[0].excerpt}</small>
+          </a>
+        )}
+        {tagCloud.length ? (
+          <div class="ref-tag-cloud" aria-label="Blog tags">
+            {tagCloud.map((item) => (
+              <a href={`/blog/tags/${tagSlug(item.tag)}/`} style={`--weight: ${item.weight}`}>
+                <span>#{item.tag}</span>
+                <small>{item.count}</small>
+              </a>
+            ))}
+          </div>
+        ) : null}
+        <div class="post-list ref-post-ledger">
           {posts.map((post) => (
             <a class="post-item" href={post.href}>
               <span class="post-item-main">

@@ -3,36 +3,59 @@ import { navItems, t } from "../data/site";
 ---
 
 <header class="topbar">
-  <nav class="site-shell nav" aria-label="Primary navigation">
-    <a class="brand" href="/" aria-label="Shuangben Chen homepage">
-      <img class="brand-mark" src="/assets/brand/favicon.svg" alt="">
-      <span>Shuangben</span> <span class="brand-surname">Chen</span>
+  <div class="ref-demo-header site-ref-header" aria-label="Site header">
+    <div class="ref-demo-header-grid nav">
+    <a class="ref-demo-logo" href="/" aria-label="Shuangben Chen homepage">
+      <span class="ref-demo-logo-mark">2Ben</span>
+      <span class="ref-demo-logo-name">Shuangben<br />Chen</span>
     </a>
-    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-label="Menu">
-      <span class="menu-toggle-lines" aria-hidden="true"><span></span><span></span></span>
-      <span>Menu</span>
-    </button>
-    <div class="nav-links">
-      {navItems.map((item) => (
-        item.children ? (
-          <div class="nav-item">
-            <a href={item.href} data-i18n={item.key}>{t(item.key)}</a>
-            <div class="nav-submenu">
-              {item.children.map((child) => <a href={child.href} data-i18n={child.key}>{t(child.key)}</a>)}
-            </div>
-          </div>
-        ) : (
-          <a href={item.href} data-i18n={item.key}>{t(item.key)}</a>
-        )
-      ))}
-    </div>
-    <div class="nav-tools" aria-label="Site tools">
-      <div class="search">
-        <input id="site-search" type="search" autocomplete="off" data-i18n-placeholder="search.placeholder" placeholder={t("search.placeholder")}>
-        <div id="search-results" class="search-results" aria-live="polite"></div>
+
+    <div class="ref-demo-header-content nav-links site-ref-header-content">
+      <nav class="ref-demo-nav" aria-label="Primary navigation">
+        {navItems.map((item) => (
+          <a class="ref-demo-bracket-link" href={item.href}>
+            <span aria-hidden="true">[</span>
+            <em data-i18n={item.key}>{t(item.key)}</em>
+            <span aria-hidden="true">]</span>
+          </a>
+        ))}
+      </nav>
+
+      <div class="ref-demo-actions nav-tools">
+        <div class="ref-demo-search search">
+          <input id="site-search" type="search" autocomplete="off" data-i18n-placeholder="search.placeholder" placeholder={t("search.placeholder")} aria-label={t("search.placeholder")}>
+          <div id="search-results" class="search-results ref-demo-search-results" aria-live="polite"></div>
+        </div>
       </div>
-      <button class="tool-button" id="language-toggle" type="button" aria-label="Switch language">中文</button>
-      <button class="theme-cycle" id="theme-toggle" type="button" aria-label="Theme"></button>
     </div>
-  </nav>
+
+    <button class="ref-demo-mobile-menu menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <span>Menu</span>
+      <span aria-hidden="true">[=]</span>
+    </button>
+    </div>
+  </div>
+
+  <button class="ref-demo-dock-toggle site-ref-dock-toggle" type="button" data-site-dock-toggle aria-expanded="false">
+    <span>Menu</span>
+    <span aria-hidden="true">[=]</span>
+  </button>
+
+  <aside class="ref-demo-dock site-ref-dock" aria-label="Site quick index">
+    <nav aria-label="Floating navigation">
+      {navItems.map((item) => (
+        <a class="ref-demo-bracket-link" href={item.href}>
+          <span aria-hidden="true">[</span>
+          <em data-i18n={item.key}>{t(item.key)}</em>
+          <span aria-hidden="true">]</span>
+        </a>
+      ))}
+    </nav>
+    <div class="ref-demo-actions">
+      <div class="ref-demo-search search">
+        <input type="search" autocomplete="off" data-site-search data-i18n-placeholder="search.placeholder" placeholder={t("search.placeholder")} aria-label={t("search.placeholder")} />
+        <div class="search-results ref-demo-search-results" data-search-results aria-live="polite"></div>
+      </div>
+    </div>
+  </aside>
 </header>

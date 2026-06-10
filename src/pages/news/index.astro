@@ -14,13 +14,17 @@ const newsItems = collectContentPreviews(modules, rawModules, {
 ---
 
 <BaseLayout title="News | Shuangben Chen" description="Recent updates and notes by Shuangben Chen.">
-  <main class="site-shell">
-    <PageHead titleKey="news.title" descKey="news.desc" title={t("news.title")} desc={t("news.desc")} />
-    <section class="section">
-      <div class="section-label"><h2 data-i18n="news.title">{t("news.title")}</h2><p data-i18n="news.desc">{t("news.desc")}</p></div>
-      <div class="news-list">
-        {newsItems.map((item) => (
-          <details class="news-item card" id={item.slug}>
+  <main class="site-shell ref-site ref-subpage ref-news">
+    <PageHead code="NW" titleKey="news.title" descKey="news.desc" title={t("news.title")} desc={t("news.desc")} />
+    <section class="section ref-stage">
+      <div class="section-label">
+        <span class="ref-code-label">// activity stream</span>
+        <h2 data-i18n="news.title">{t("news.title")}</h2>
+        <p data-i18n="news.desc">{t("news.desc")}</p>
+      </div>
+      <div class="news-list ref-news-timeline">
+        {newsItems.map((item, index) => (
+          <details class="news-item card" id={item.slug} style={`--news-index: "${String(index + 1).padStart(2, "0")}"`}>
             <summary>
               <span class="news-node" aria-hidden="true"></span>
               <span class="news-summary-main">
