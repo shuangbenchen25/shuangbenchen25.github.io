@@ -23,9 +23,10 @@ const newsItems = collectContentPreviews(modules, rawModules, {
         <p data-i18n="news.desc">{t("news.desc")}</p>
       </div>
       <div class="news-list ref-news-timeline">
-        {newsItems.map((item, index) => (
-          <details class="news-item card" id={item.slug} style={`--news-index: "${String(index + 1).padStart(2, "0")}"`}>
+        {newsItems.map((item) => (
+          <details class="news-item card" id={item.slug}>
             <summary>
+              <time class="news-date-index" datetime={item.date.toISOString()}>{item.dateLabel}</time>
               <span class="news-node" aria-hidden="true"></span>
               <span class="news-summary-main">
                 <time class="date" datetime={item.date.toISOString()}>{item.dateLabel}</time>

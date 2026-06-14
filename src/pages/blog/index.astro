@@ -15,11 +15,10 @@ const posts = collectContentPreviews(modules, rawModules, {
 const tagCounts = posts
   .flatMap((post) => post.tags)
   .reduce<Map<string, number>>((counts, tag) => counts.set(tag, (counts.get(tag) || 0) + 1), new Map());
-const maxTagCount = Math.max(1, ...tagCounts.values());
-const tagCloud = Array.from(tagCounts.entries())
+const tagFilters = Array.from(tagCounts.entries())
   .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
   .slice(0, 14)
-  .map(([tag, count]) => ({ tag, count, weight: 0.72 + (count / maxTagCount) * 1.18 }));
+  .map(([tag, count]) => ({ tag, count }));
 ---
 
 <BaseLayout title="Blog | Shuangben Chen" description="Blog and notes by Shuangben Chen.">
@@ -39,10 +38,10 @@ const tagCloud = Array.from(tagCounts.entries())
             <small>{posts[0].description || posts[0].excerpt}</small>
           </a>
         )}
-        {tagCloud.length ? (
-          <div class="ref-tag-cloud" aria-label="Blog tags">
-            {tagCloud.map((item) => (
-              <a href={`/blog/tags/${tagSlug(item.tag)}/`} style={`--weight: ${item.weight}`}>
+        {tagFilters.length ? (
+          <div class="ref-tag-filter" aria-label="Blog tags">
+            {tagFilters.map((item) => (
+              <a href={`/blog/tags/${tagSlug(item.tag)}/`}>
                 <span>#{item.tag}</span>
                 <small>{item.count}</small>
               </a>
